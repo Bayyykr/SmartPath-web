@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\Polsek;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -257,6 +258,51 @@ class DatabaseSeeder extends Seeder
 
         foreach ($polseks as $polsek) {
             Polsek::updateOrCreate(["nama" => $polsek["nama"]], $polsek);
+        }
+
+        $categories = [
+            [
+                "nama_kategori" => "Pembegalan / Perampokan Jalanan",
+                "jenis" => "kejahatan",
+                "warna_marker" => "#FF0000",
+            ],
+            [
+                "nama_kategori" => "Pencurian Motor (Curanmor)",
+                "jenis" => "kejahatan",
+                "warna_marker" => "#E91E63",
+            ],
+            [
+                "nama_kategori" => "Pemberatan / Penganiayaan",
+                "jenis" => "kejahatan",
+                "warna_marker" => "#9C27B0",
+            ],
+            [
+                "nama_kategori" => "Pencurian Rumah / Toko",
+                "jenis" => "kejahatan",
+                "warna_marker" => "#FF5722",
+            ],
+            [
+                "nama_kategori" => "Kecelakaan Lalu Lintas Tunggal",
+                "jenis" => "kecelakaan",
+                "warna_marker" => "#4CAF50",
+            ],
+            [
+                "nama_kategori" => "Kecelakaan Tabrakan",
+                "jenis" => "kecelakaan",
+                "warna_marker" => "#009688",
+            ],
+            [
+                "nama_kategori" => "Kecelakaan Beruntun",
+                "jenis" => "kecelakaan",
+                "warna_marker" => "#00BCD4",
+            ],
+        ];
+
+        foreach ($categories as $category) {
+            Category::updateOrCreate(
+                ["nama_kategori" => $category["nama_kategori"]],
+                $category,
+            );
         }
     }
 }

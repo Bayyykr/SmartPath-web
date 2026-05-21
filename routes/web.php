@@ -32,8 +32,11 @@ Route::middleware(["auth", "verified"])->group(function () {
                 "update",
                 "destroy",
             ]);
-            Route::resource("categories", CategoryController::class)->except([
-                "show",
+            Route::resource("categories", CategoryController::class)->only([
+                "index",
+                "store",
+                "update",
+                "destroy",
             ]);
             Route::resource("cctvs", CctvController::class);
             Route::resource("locations", LocationController::class)->except([
