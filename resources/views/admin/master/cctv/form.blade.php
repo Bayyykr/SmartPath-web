@@ -24,23 +24,17 @@
             </div>
 
             <div>
+                <label class="form-label">Keterangan Posisi CCTV</label>
+                <textarea class="form-input min-h-[90px]" name="keterangan" placeholder="Contoh: Menghadap pintu masuk sisi utara Alun-Alun Lumajang">{{ old('keterangan', $item->keterangan) }}</textarea>
+                <p class="mt-2 text-sm text-gray-500">Isi keterangan singkat tentang posisi atau arah pantau CCTV.</p>
+                @error('keterangan') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+            </div>
+
+            <div>
                 <label class="form-label">URL Live Streaming YouTube</label>
                 <input class="form-input" name="url_stream" value="{{ old('url_stream', $item->url_stream) }}" placeholder="https://www.youtube.com/watch?v=... atau https://www.youtube.com/live/...">
                 <p class="mt-2 text-sm text-gray-500">Masukkan URL livestream YouTube. Sistem akan otomatis menampilkan player live streaming.</p>
                 @error('url_stream') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
-            </div>
-
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label class="form-label">Latitude</label>
-                    <input class="form-input" name="latitude" value="{{ old('latitude', $item->latitude) }}" placeholder="-8.1322">
-                    @error('latitude') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
-                </div>
-                <div>
-                    <label class="form-label">Longitude</label>
-                    <input class="form-input" name="longitude" value="{{ old('longitude', $item->longitude) }}" placeholder="113.2245">
-                    @error('longitude') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
-                </div>
             </div>
 
             <label class="inline-flex items-center gap-2">
