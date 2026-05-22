@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CctvController;
+use App\Http\Controllers\Admin\KonfirmasiLaporanController;
 use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\PolsekController;
 use App\Http\Controllers\ProfileController;
@@ -40,6 +42,34 @@ Route::middleware(["auth", "verified"])->group(function () {
             ]);
             Route::resource("cctvs", CctvController::class);
             Route::resource("locations", LocationController::class)->only([
+                "index",
+                "store",
+                "update",
+                "destroy",
+            ]);
+
+            Route::get("konfirmasi-laporan/export", [
+                KonfirmasiLaporanController::class,
+                "export",
+            ])->name("konfirmasi-laporan.export");
+            Route::get("konfirmasi-laporan", [
+                KonfirmasiLaporanController::class,
+                "index",
+            ])->name("konfirmasi-laporan.index");
+            Route::patch("konfirmasi-laporan/{laporan}", [
+                KonfirmasiLaporanController::class,
+                "update",
+            ])->name("konfirmasi-laporan.update");
+
+            Route::patch("berita/{berita}/publish", [
+                BeritaController::class,
+                "publish",
+            ])->name("berita.publish");
+            Route::patch("berita/{berita}/draft", [
+                BeritaController::class,
+                "draft",
+            ])->name("berita.draft");
+            Route::resource("berita", BeritaController::class)->only([
                 "index",
                 "store",
                 "update",

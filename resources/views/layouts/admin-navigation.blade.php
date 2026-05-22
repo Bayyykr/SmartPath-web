@@ -49,11 +49,11 @@
                 <span>Layanan</span>
                 <span class="text-gray-400">▾</span>
             </summary>
-            <a href="#" class="sidebar-link">
+            <a href="{{ route('admin.konfirmasi-laporan.index') }}" class="sidebar-link {{ request()->routeIs('admin.konfirmasi-laporan.*') ? 'active' : '' }}">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20Z" /></svg>
-                <span>Konfirmasi</span>
+                <span>Konfirmasi Laporan</span>
             </a>
-            <a href="#" class="sidebar-link">
+            <a href="{{ route('admin.berita.index') }}" class="sidebar-link {{ request()->routeIs('admin.berita.*') ? 'active' : '' }}">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h10l6 6v8a2 2 0 0 1-2 2Z" /></svg>
                 <span>Berita</span>
             </a>
