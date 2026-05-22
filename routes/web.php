@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CctvController;
 use App\Http\Controllers\Admin\KonfirmasiLaporanController;
+use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\PolsekController;
 use App\Http\Controllers\ProfileController;
@@ -60,6 +61,31 @@ Route::middleware(["auth", "verified"])->group(function () {
                 KonfirmasiLaporanController::class,
                 "update",
             ])->name("konfirmasi-laporan.update");
+
+            Route::get("laporan/infografik", [
+                LaporanController::class,
+                "infografik",
+            ])->name("laporan.infografik");
+            Route::get("laporan/riwayat", [
+                LaporanController::class,
+                "riwayat",
+            ])->name("laporan.riwayat");
+            Route::get("laporan/darurat", [
+                LaporanController::class,
+                "darurat",
+            ])->name("laporan.darurat");
+            Route::post("laporan/darurat", [
+                LaporanController::class,
+                "storeDarurat",
+            ])->name("laporan.darurat.store");
+            Route::patch("laporan/darurat/{emergencyReport}/dispatch", [
+                LaporanController::class,
+                "dispatchDarurat",
+            ])->name("laporan.darurat.dispatch");
+            Route::patch("laporan/darurat/{emergencyReport}/complete", [
+                LaporanController::class,
+                "completeDarurat",
+            ])->name("laporan.darurat.complete");
 
             Route::patch("berita/{berita}/publish", [
                 BeritaController::class,

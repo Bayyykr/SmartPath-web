@@ -924,8 +924,520 @@
                 color: #3730a3;
             }
 
+            .infographic-page {
+                min-height: calc(100vh - var(--header-height));
+                background: #ffffff;
+                padding: 22px 32px 40px;
+            }
+
+            .infographic-section {
+                margin-bottom: 28px;
+            }
+
+            .infographic-filter {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-bottom: 14px;
+                color: #374151;
+                font-size: 13px;
+                font-weight: 600;
+            }
+
+            .infographic-filter label {
+                margin-right: 4px;
+                white-space: nowrap;
+            }
+
+            .infographic-filter input {
+                height: 34px;
+                border: 1px solid #d1d5db;
+                border-radius: 5px;
+                background: #ffffff;
+                padding: 0 10px;
+                color: #111827;
+                font-size: 12px;
+                outline: none;
+            }
+
+            .infographic-filter button {
+                width: 34px;
+                height: 34px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 6px;
+                background: #111827;
+                color: #ffffff;
+            }
+
+            .infographic-filter button svg {
+                width: 15px;
+                height: 15px;
+            }
+
+            .infographic-title {
+                margin-bottom: 8px;
+                color: #111827;
+                font-size: 13px;
+                font-weight: 800;
+            }
+
+            .infographic-chart {
+                position: relative;
+                width: 100%;
+            }
+
+            .infographic-line-chart {
+                height: 305px;
+            }
+
+            .infographic-kecamatan-chart {
+                height: 390px;
+            }
+
+            .infographic-category-chart {
+                height: 260px;
+            }
+
+            .report-page {
+                min-height: calc(100vh - var(--header-height));
+                background: #ffffff;
+                padding: 24px 32px 36px;
+            }
+
+            .report-hero,
+            .emergency-hero {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 20px;
+                border-radius: 18px;
+                padding: 26px 28px;
+                margin-bottom: 18px;
+                overflow: hidden;
+            }
+
+            .report-hero {
+                border: 1px solid #e5e7eb;
+                background: linear-gradient(135deg, #f9fafb 0%, #ffffff 58%, #f3f4f6 100%);
+            }
+
+            .emergency-hero {
+                border: 1px solid #e5e7eb;
+                background: linear-gradient(135deg, #f9fafb 0%, #ffffff 58%, #f3f4f6 100%);
+            }
+
+            .report-eyebrow {
+                margin-bottom: 6px;
+                color: #111827;
+                font-size: 12px;
+                font-weight: 900;
+                letter-spacing: .12em;
+                text-transform: uppercase;
+            }
+
+            .emergency-hero .report-eyebrow {
+                color: #111827;
+            }
+
+            .report-hero h1,
+            .emergency-hero h1 {
+                color: #111827;
+                font-size: 28px;
+                font-weight: 900;
+                letter-spacing: -0.04em;
+            }
+
+            .report-hero p:not(.report-eyebrow),
+            .emergency-hero p:not(.report-eyebrow) {
+                margin-top: 6px;
+                max-width: 680px;
+                color: #64748b;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+
+            .report-hero-icon,
+            .emergency-pulse {
+                width: 74px;
+                height: 74px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+                border-radius: 22px;
+            }
+
+            .report-hero-icon {
+                background: #f3f4f6;
+                color: #111827;
+            }
+
+            .emergency-pulse {
+                position: relative;
+                background: #f3f4f6;
+                color: #111827;
+            }
+
+            .emergency-pulse::after {
+                content: "";
+                position: absolute;
+                inset: -8px;
+                border-radius: 28px;
+                border: 2px solid rgba(17, 24, 39, .16);
+                animation: emergency-pulse 1.4s ease-out infinite;
+            }
+
+            .report-hero-icon svg,
+            .emergency-pulse svg {
+                width: 36px;
+                height: 36px;
+            }
+
+            @keyframes emergency-pulse {
+                from { opacity: .8; transform: scale(.92); }
+                to { opacity: 0; transform: scale(1.12); }
+            }
+
+            .report-summary-grid {
+                display: grid;
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                gap: 14px;
+                margin-bottom: 18px;
+            }
+
+            .report-stat-card {
+                position: relative;
+                overflow: hidden;
+                border: 1px solid #e5e7eb;
+                border-radius: 16px;
+                background: #ffffff;
+                padding: 18px;
+                box-shadow: 0 12px 30px rgba(15, 23, 42, .06);
+            }
+
+            .report-stat-card::before {
+                content: "";
+                position: absolute;
+                inset: 0 auto 0 0;
+                width: 5px;
+                background: #111827;
+            }
+
+            .report-stat-card span {
+                color: #64748b;
+                font-size: 13px;
+                font-weight: 800;
+            }
+
+            .report-stat-card strong {
+                display: block;
+                margin-top: 8px;
+                color: #111827;
+                font-size: 30px;
+                font-weight: 900;
+                letter-spacing: -0.04em;
+            }
+
+            .report-stat-card small {
+                color: #94a3b8;
+                font-size: 12px;
+                font-weight: 700;
+            }
+
+            .report-stat-card.accent-red::before,
+            .report-stat-card.accent-yellow::before,
+            .report-stat-card.accent-green::before,
+            .report-stat-card.accent-blue::before,
+            .report-stat-card.accent-indigo::before { background: #111827; }
+
+            .report-page .btn-primary,
+            .infographic-page .btn-primary {
+                background: #111827;
+                color: #ffffff;
+            }
+
+            .report-page .btn-edit,
+            .infographic-page .btn-edit {
+                background: #111827;
+            }
+
+            .report-filter-card {
+                display: grid;
+                grid-template-columns: 1.5fr repeat(5, minmax(150px, 1fr));
+                gap: 12px;
+                align-items: end;
+                border: 1px solid #e5e7eb;
+                border-radius: 16px;
+                background: #f8fafc;
+                padding: 16px;
+                margin-bottom: 18px;
+            }
+
+            .report-filter-actions {
+                display: flex;
+                gap: 8px;
+            }
+
+            .report-table-card {
+                border: 1px solid #e5e7eb;
+                border-radius: 16px;
+                background: #ffffff;
+                padding: 18px;
+                box-shadow: 0 12px 30px rgba(15, 23, 42, .05);
+            }
+
+            .report-section-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 12px;
+            }
+
+            .report-section-header h2 {
+                color: #111827;
+                font-size: 18px;
+                font-weight: 900;
+            }
+
+            .report-section-header p {
+                margin-top: 3px;
+                color: #64748b;
+                font-size: 13px;
+                font-weight: 600;
+            }
+
+            .emergency-map-panel {
+                display: grid;
+                grid-template-columns: 1fr 320px;
+                gap: 16px;
+                margin-bottom: 18px;
+            }
+
+            .emergency-map-placeholder {
+                position: relative;
+                min-height: 280px;
+                overflow: hidden;
+                border: 1px solid #e5e7eb;
+                border-radius: 18px;
+                background:
+                    linear-gradient(90deg, rgba(148, 163, 184, .16) 1px, transparent 1px),
+                    linear-gradient(rgba(148, 163, 184, .16) 1px, transparent 1px),
+                    radial-gradient(circle at 28% 30%, rgba(17, 24, 39, .07), transparent 18%),
+                    radial-gradient(circle at 72% 68%, rgba(17, 24, 39, .06), transparent 20%),
+                    #f8fafc;
+                background-size: 36px 36px, 36px 36px, auto, auto, auto;
+            }
+
+            .sos-map-marker {
+                position: absolute;
+                width: 34px;
+                height: 34px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                border: 3px solid #ffffff;
+                border-radius: 999px;
+                background: #111827;
+                color: #ffffff;
+                font-size: 18px;
+                font-weight: 1000;
+                box-shadow: 0 8px 24px rgba(17, 24, 39, .28);
+                transform: translate(-50%, -50%);
+            }
+
+            .sos-marker-position-1 { left: 12%; top: 22%; }
+            .sos-marker-position-2 { left: 28%; top: 64%; }
+            .sos-marker-position-3 { left: 43%; top: 36%; }
+            .sos-marker-position-4 { left: 58%; top: 72%; }
+            .sos-marker-position-5 { left: 74%; top: 28%; }
+            .sos-marker-position-6 { left: 86%; top: 58%; }
+            .sos-marker-position-7 { left: 22%; top: 46%; }
+            .sos-marker-position-8 { left: 66%; top: 44%; }
+
+            .sos-map-marker.is-blinking {
+                animation: sos-marker-blink .8s ease-in-out infinite;
+            }
+
+            .sos-map-marker.is-blinking::after {
+                content: "";
+                position: absolute;
+                inset: -12px;
+                border-radius: 999px;
+                border: 2px solid rgba(17, 24, 39, .28);
+                animation: emergency-pulse 1.2s ease-out infinite;
+            }
+
+            @keyframes sos-marker-blink {
+                0%, 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+                50% { opacity: .45; transform: translate(-50%, -50%) scale(1.12); }
+            }
+
+            .emergency-map-info {
+                border: 1px solid #e5e7eb;
+                border-radius: 18px;
+                background: #f9fafb;
+                padding: 18px;
+            }
+
+            .emergency-map-info h2 {
+                color: #111827;
+                font-size: 16px;
+                font-weight: 900;
+            }
+
+            .emergency-map-info p {
+                margin: 8px 0 14px;
+                color: #64748b;
+                font-size: 13px;
+                line-height: 1.6;
+            }
+
+            .sos-row-active {
+                background: #f9fafb !important;
+                box-shadow: inset 4px 0 0 #111827;
+            }
+
+            .sos-screen-alert .admin-header {
+                animation: sos-screen-flash 1s ease-in-out 4;
+            }
+
+            @keyframes sos-screen-flash {
+                0%, 100% { background: rgba(255, 255, 255, .96); }
+                50% { background: #f3f4f6; }
+            }
+
+            .emergency-list {
+                display: grid;
+                gap: 14px;
+            }
+
+            .emergency-card {
+                display: grid;
+                grid-template-columns: 1fr auto;
+                gap: 18px;
+                border: 1px solid #e5e7eb;
+                border-left: 5px solid #111827;
+                border-radius: 16px;
+                background: #ffffff;
+                padding: 18px;
+                box-shadow: 0 12px 30px rgba(17, 24, 39, .06);
+            }
+
+            .emergency-card-top {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-bottom: 8px;
+            }
+
+            .emergency-badge {
+                display: inline-flex;
+                align-items: center;
+                border-radius: 999px;
+                background: #111827;
+                color: #ffffff;
+                padding: 5px 10px;
+                font-size: 11px;
+                font-weight: 900;
+                text-transform: uppercase;
+                letter-spacing: .04em;
+            }
+
+            .emergency-card h2 {
+                color: #111827;
+                font-size: 18px;
+                font-weight: 900;
+                letter-spacing: -0.02em;
+            }
+
+            .emergency-card-main > p {
+                margin-top: 6px;
+                color: #64748b;
+                font-size: 14px;
+                line-height: 1.55;
+            }
+
+            .emergency-meta-grid {
+                display: grid;
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                gap: 10px;
+                margin-top: 14px;
+            }
+
+            .emergency-meta-grid div {
+                border-radius: 12px;
+                background: #f8fafc;
+                padding: 10px 12px;
+            }
+
+            .emergency-meta-grid span,
+            .emergency-meta-grid small {
+                display: block;
+                color: #94a3b8;
+                font-size: 11px;
+                font-weight: 800;
+            }
+
+            .emergency-meta-grid strong {
+                display: block;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                color: #111827;
+                font-size: 13px;
+                font-weight: 800;
+            }
+
+            .emergency-card-actions {
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                justify-content: center;
+                gap: 8px;
+                min-width: 138px;
+            }
+
+            .report-empty-state {
+                border: 1px dashed #cbd5e1;
+                border-radius: 16px;
+                background: #f8fafc;
+                padding: 42px 24px;
+                text-align: center;
+            }
+
+            .report-empty-state div {
+                width: 52px;
+                height: 52px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 999px;
+                background: #f3f4f6;
+                color: #111827;
+                font-size: 26px;
+                font-weight: 900;
+            }
+
+            .report-empty-state h2 {
+                margin-top: 14px;
+                color: #111827;
+                font-size: 18px;
+                font-weight: 900;
+            }
+
+            .report-empty-state p {
+                margin-top: 5px;
+                color: #64748b;
+                font-size: 14px;
+            }
+
             @media (max-width: 1280px) {
                 .cctv-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+                .report-summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+                .report-filter-card { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+                .emergency-meta-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
             }
 
             @media (max-width: 1024px) {
@@ -987,6 +1499,18 @@
                     align-items: stretch;
                 }
 
+                .report-filter-card,
+                .emergency-card,
+                .emergency-map-panel {
+                    grid-template-columns: 1fr;
+                }
+
+                .emergency-card-actions {
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    justify-content: flex-start;
+                }
+
                 .stats-grid { grid-template-columns: 1fr; }
                 .stats-grid { left: 12px; right: 12px; bottom: 12px; }
                 .chart-box { height: 180px; }
@@ -1010,8 +1534,36 @@
                 }
 
                 .master-page,
-                .cctv-page {
+                .cctv-page,
+                .report-page,
+                .infographic-page {
                     padding: 18px;
+                }
+
+                .infographic-filter {
+                    flex-wrap: wrap;
+                }
+
+                .report-hero,
+                .emergency-hero {
+                    align-items: flex-start;
+                    padding: 20px;
+                }
+
+                .report-hero-icon,
+                .emergency-pulse {
+                    display: none;
+                }
+
+                .report-hero h1,
+                .emergency-hero h1 {
+                    font-size: 23px;
+                }
+
+                .report-summary-grid,
+                .report-filter-card,
+                .emergency-meta-grid {
+                    grid-template-columns: 1fr;
                 }
 
                 .master-search,

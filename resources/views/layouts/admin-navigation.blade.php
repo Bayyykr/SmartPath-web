@@ -1,6 +1,7 @@
 @php
     $masterOpen = request()->routeIs('admin.users.*', 'admin.polseks.*', 'admin.categories.*', 'admin.cctvs.*', 'admin.locations.*');
     $layananOpen = request()->routeIs('admin.konfirmasi-laporan.*', 'admin.berita.*');
+    $laporanOpen = request()->routeIs('admin.laporan.*');
 @endphp
 
 <nav class="sidebar" aria-label="Navigasi admin">
@@ -73,22 +74,22 @@
         </details>
 
 
-        <details class="sidebar-dropdown">
+        <details class="sidebar-dropdown" {{ $laporanOpen ? 'open' : '' }}>
             <summary class="category-title cursor-pointer select-none flex items-center justify-between">
                 <span>Laporan</span>
                 <span class="text-gray-400">▾</span>
             </summary>
             <div class="sidebar-dropdown-content">
                 <div class="sidebar-dropdown-inner">
-                    <a href="#" class="sidebar-link">
+                    <a href="{{ route('admin.laporan.infografik') }}" class="sidebar-link {{ request()->routeIs('admin.laporan.infografik') ? 'active' : '' }}">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 19V5m0 14h16M8 16V9m4 7V6m4 10v-4" /></svg>
                         <span>Infografik</span>
                     </a>
-                    <a href="#" class="sidebar-link">
+                    <a href="{{ route('admin.laporan.riwayat') }}" class="sidebar-link {{ request()->routeIs('admin.laporan.riwayat') ? 'active' : '' }}">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v5l3 2M21 12A9 9 0 1 1 3 12a9 9 0 0 1 18 0Z" /></svg>
                         <span>Riwayat</span>
                     </a>
-                    <a href="#" class="sidebar-link">
+                    <a href="{{ route('admin.laporan.darurat') }}" class="sidebar-link {{ request()->routeIs('admin.laporan.darurat') ? 'active' : '' }}">
                         <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.72-1.36 3.486 0l6.518 11.59c.75 1.334-.213 2.986-1.743 2.986H3.482c-1.53 0-2.493-1.652-1.743-2.986l6.518-11.59ZM11 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm-1-2a1 1 0 0 0 1-1V8a1 1 0 1 0-2 0v3a1 1 0 0 0 1 1Z" clip-rule="evenodd" /></svg>
                         <span>Darurat</span>
                     </a>
