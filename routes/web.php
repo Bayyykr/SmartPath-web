@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CctvController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\KonfirmasiLaporanController;
 use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Admin\LocationController;
@@ -16,9 +17,7 @@ Route::get("/", function () {
 });
 
 Route::middleware(["auth", "verified"])->group(function () {
-    Route::get("/dashboard", function () {
-        return view("admin.dashboard");
-    })->name("dashboard");
+    Route::get("/dashboard", DashboardController::class)->name("dashboard");
 
     Route::prefix("admin")
         ->name("admin.")

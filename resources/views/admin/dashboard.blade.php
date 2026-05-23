@@ -1,6 +1,9 @@
 <x-admin-layout>
     <x-slot name="header">Dashboard</x-slot>
 
+    <script id="dashboard-chart-data" type="application/json">@json($chartData)</script>
+    <script id="dashboard-map-data" type="application/json">@json($mapData)</script>
+
     <div class="dashboard-content">
         <section class="map-panel">
             <button class="map-filter" type="button" aria-label="Filter map">
@@ -13,21 +16,21 @@
 
         <section class="stats-grid">
             <div class="card">
-                <h3 class="card-title">Statistik</h3>
+                <h3 class="card-title">Tren Laporan Tahun Ini</h3>
                 <div class="chart-box">
                     <canvas id="statistikChart"></canvas>
                 </div>
             </div>
 
             <div class="card">
-                <h3 class="card-title">Laporan</h3>
+                <h3 class="card-title">Lokasi Laporan Terbanyak</h3>
                 <div class="chart-box">
                     <canvas id="laporanChart"></canvas>
                 </div>
             </div>
 
             <div class="card">
-                <h3 class="card-title">Kejahatan & Kecelakaan</h3>
+                <h3 class="card-title">Kategori Dominan</h3>
                 <div class="chart-box">
                     <canvas id="kejahatanKecelakaanChart"></canvas>
                 </div>

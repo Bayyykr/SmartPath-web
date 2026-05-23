@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Berita;
 use App\Models\Category;
+use App\Models\EmergencyReport;
 use App\Models\KonfirmasiLaporan;
 use App\Models\Laporan;
 use App\Models\Location;
@@ -271,6 +272,21 @@ class DatabaseSeeder extends Seeder
                 "warna_marker" => "#FF5722",
             ],
             [
+                "nama_kategori" => "Penjambretan / Pencurian HP",
+                "jenis" => "kejahatan",
+                "warna_marker" => "#F97316",
+            ],
+            [
+                "nama_kategori" => "Penipuan Online / Scam Digital",
+                "jenis" => "kejahatan",
+                "warna_marker" => "#6366F1",
+            ],
+            [
+                "nama_kategori" => "Balap Liar / Gangguan Ketertiban",
+                "jenis" => "kejahatan",
+                "warna_marker" => "#F59E0B",
+            ],
+            [
                 "nama_kategori" => "Kecelakaan Lalu Lintas Tunggal",
                 "jenis" => "kecelakaan",
                 "warna_marker" => "#4CAF50",
@@ -441,6 +457,221 @@ class DatabaseSeeder extends Seeder
                 "status" => "pending",
                 "created_at" => now()->subDays(5)->setTime(5, 40),
             ],
+            [
+                "user_email" => "nia@geocrime.test",
+                "kategori" => "Pencurian Motor (Curanmor)",
+                "lokasi" => "Lumajang (Kota)",
+                "polsek" => "Polsek Lumajang Kota",
+                "judul_laporan" => "Curanmor di parkiran minimarket Veteran",
+                "deskripsi" =>
+                    "Motor bebek warna merah hilang saat pemilik berbelanja sekitar 15 menit. Area parkir cukup ramai dan pelapor sudah mengecek sekitar lokasi.",
+                "latitude" => -8.1328,
+                "longitude" => 113.2242,
+                "status" => "pending",
+                "created_at" => now()->subDays(1)->setTime(20, 15),
+            ],
+            [
+                "user_email" => "yoga@geocrime.test",
+                "kategori" => "Penjambretan / Pencurian HP",
+                "lokasi" => "Lumajang (Kota)",
+                "polsek" => "Polsek Lumajang Kota",
+                "judul_laporan" => "Penjambretan HP dekat kawasan alun-alun",
+                "deskripsi" =>
+                    "Pelapor kehilangan handphone saat berjalan kaki. Pelaku menggunakan sepeda motor dan langsung kabur ke arah jalan utama.",
+                "latitude" => -8.134,
+                "longitude" => 113.2215,
+                "status" => "dikonfirmasi",
+                "catatan" =>
+                    "Laporan valid. Petugas melakukan penelusuran saksi dan rekaman kamera sekitar.",
+                "petugas_email" => "admin.lumajang@geocrime.test",
+                "created_at" => now()->subDays(2)->setTime(18, 55),
+            ],
+            [
+                "user_email" => "rina@geocrime.test",
+                "kategori" => "Penipuan Online / Scam Digital",
+                "lokasi" => "Lumajang (Kota)",
+                "polsek" => "Polsek Lumajang Kota",
+                "judul_laporan" =>
+                    "Penipuan marketplace dengan bukti transfer palsu",
+                "deskripsi" =>
+                    "Pelapor menerima bukti transfer palsu dari pembeli online. Barang hampir dikirim sebelum pelapor menyadari rekening belum bertambah.",
+                "latitude" => -8.1352,
+                "longitude" => 113.2237,
+                "status" => "pending",
+                "created_at" => now()->subDays(3)->setTime(10, 25),
+            ],
+            [
+                "user_email" => "budi@geocrime.test",
+                "kategori" => "Balap Liar / Gangguan Ketertiban",
+                "lokasi" => "Sukodono",
+                "polsek" => "Polsek Sukodono",
+                "judul_laporan" =>
+                    "Balap liar saat malam minggu di jalur Sukodono",
+                "deskripsi" =>
+                    "Sekelompok remaja melakukan balap liar dan mengganggu pengguna jalan. Warga meminta patroli rutin saat akhir pekan.",
+                "latitude" => -8.1118,
+                "longitude" => 113.2329,
+                "status" => "dikonfirmasi",
+                "catatan" =>
+                    "Patroli malam ditingkatkan di titik rawan balap liar.",
+                "petugas_email" => "dewi@geocrime.test",
+                "created_at" => now()->subDays(4)->setTime(23, 30),
+            ],
+            [
+                "user_email" => "siti@geocrime.test",
+                "kategori" => "Kecelakaan Tabrakan",
+                "lokasi" => "Pasirian",
+                "polsek" => "Polsek Pasirian",
+                "judul_laporan" => "Tabrakan motor di jalur padat Pasirian",
+                "deskripsi" =>
+                    "Dua pengendara motor bertabrakan saat salah satu kendaraan hendak menyalip. Korban mengalami luka ringan dan dibawa ke fasilitas kesehatan terdekat.",
+                "latitude" => -8.2152,
+                "longitude" => 113.1155,
+                "status" => "pending",
+                "created_at" => now()->subDays(2)->setTime(7, 45),
+            ],
+            [
+                "user_email" => "maya@geocrime.test",
+                "kategori" => "Kecelakaan Beruntun",
+                "lokasi" => "Sumbersuko",
+                "polsek" => "Polsek Sumbersuko",
+                "judul_laporan" =>
+                    "Kecelakaan beruntun kecil akibat pengereman mendadak",
+                "deskripsi" =>
+                    "Tiga kendaraan terlibat kecelakaan ringan saat arus lalu lintas padat. Tidak ada korban jiwa, namun arus sempat tersendat.",
+                "latitude" => -8.1631,
+                "longitude" => 113.2028,
+                "status" => "dikonfirmasi",
+                "catatan" =>
+                    "Petugas mengatur lalu lintas dan meminta pengendara menjaga jarak aman.",
+                "petugas_email" => "admin@geocrime.test",
+                "created_at" => now()->subDays(6)->setTime(16, 20),
+            ],
+            [
+                "user_email" => "andi@geocrime.test",
+                "kategori" => "Pencurian Motor (Curanmor)",
+                "lokasi" => "Sumbersuko",
+                "polsek" => "Polsek Sumbersuko",
+                "judul_laporan" =>
+                    "Percobaan curanmor di halaman kos Sumbersuko",
+                "deskripsi" =>
+                    "Warga memergoki dua orang mencoba merusak kunci motor di halaman kos. Pelaku kabur setelah diteriaki warga.",
+                "latitude" => -8.164,
+                "longitude" => 113.2041,
+                "status" => "pending",
+                "created_at" => now()->subDays(1)->setTime(2, 10),
+            ],
+            [
+                "user_email" => "fitri@geocrime.test",
+                "kategori" => "Pemberatan / Penganiayaan",
+                "lokasi" => "Yosowilangun",
+                "polsek" => "Polsek Yosowilangun",
+                "judul_laporan" => "Keributan antar pemuda setelah acara musik",
+                "deskripsi" =>
+                    "Terjadi keributan antar pemuda setelah acara musik lokal. Warga melerai sebelum kejadian meluas.",
+                "latitude" => -8.2055,
+                "longitude" => 113.3189,
+                "status" => "dikonfirmasi",
+                "catatan" =>
+                    "Petugas melakukan pendataan saksi dan mediasi awal.",
+                "petugas_email" => "fitri@geocrime.test",
+                "created_at" => now()->subDays(7)->setTime(22, 40),
+            ],
+            [
+                "user_email" => "eko@geocrime.test",
+                "kategori" => "Pencurian Rumah / Toko",
+                "lokasi" => "Kunir",
+                "polsek" => "Polsek Lumajang Kota",
+                "judul_laporan" =>
+                    "Gudang toko bangunan kehilangan kabel dan perkakas",
+                "deskripsi" =>
+                    "Pemilik menemukan beberapa gulung kabel dan perkakas hilang dari gudang belakang. Diduga pelaku masuk melalui pagar samping.",
+                "latitude" => -8.2128,
+                "longitude" => 113.2668,
+                "status" => "pending",
+                "created_at" => now()->subDays(2)->setTime(6, 30),
+            ],
+            [
+                "user_email" => "nia@geocrime.test",
+                "kategori" => "Pembegalan / Perampokan Jalanan",
+                "lokasi" => "Kunir",
+                "polsek" => "Polsek Lumajang Kota",
+                "judul_laporan" =>
+                    "Dugaan pembegalan di ruas Kunir menjelang subuh",
+                "deskripsi" =>
+                    "Pengendara merasa diikuti dua sepeda motor di ruas sepi. Pelapor berhasil menuju permukiman warga sebelum terjadi kontak langsung.",
+                "latitude" => -8.2119,
+                "longitude" => 113.2654,
+                "status" => "dikonfirmasi",
+                "catatan" => "Patroli subuh ditingkatkan di ruas rawan Kunir.",
+                "petugas_email" => "admin@geocrime.test",
+                "created_at" => now()->subDays(3)->setTime(4, 35),
+            ],
+            [
+                "user_email" => "yoga@geocrime.test",
+                "kategori" => "Kecelakaan Lalu Lintas Tunggal",
+                "lokasi" => "Candipuro",
+                "polsek" => "Polsek Candipuro",
+                "judul_laporan" => "Motor tergelincir saat hujan di Candipuro",
+                "deskripsi" =>
+                    "Pengendara tergelincir di jalan licin saat hujan deras. Warga membantu korban dan menghubungi keluarga.",
+                "latitude" => -8.1892,
+                "longitude" => 113.0524,
+                "status" => "selesai",
+                "catatan" =>
+                    "Korban sudah ditangani dan kendaraan diamankan keluarga.",
+                "petugas_email" => "dewi@geocrime.test",
+                "created_at" => now()->subMonth()->setDay(18)->setTime(17, 10),
+            ],
+            [
+                "user_email" => "budi@geocrime.test",
+                "kategori" => "Penipuan Online / Scam Digital",
+                "lokasi" => "Sukodono",
+                "polsek" => "Polsek Sukodono",
+                "judul_laporan" =>
+                    "Modus link kurir palsu menguras saldo e-wallet",
+                "deskripsi" =>
+                    "Pelapor membuka tautan yang mengatasnamakan kurir paket. Setelah mengisi data, saldo e-wallet berkurang tanpa transaksi yang diakui.",
+                "latitude" => -8.1125,
+                "longitude" => 113.2314,
+                "status" => "selesai",
+                "catatan" =>
+                    "Pelapor diarahkan mengamankan akun dan membuat laporan pendukung ke penyedia layanan.",
+                "petugas_email" => "admin@geocrime.test",
+                "created_at" => now()->subMonth()->setDay(24)->setTime(13, 5),
+            ],
+            [
+                "user_email" => "siti@geocrime.test",
+                "kategori" => "Pencurian Motor (Curanmor)",
+                "lokasi" => "Pasirian",
+                "polsek" => "Polsek Pasirian",
+                "judul_laporan" => "Curanmor di parkiran tempat makan Pasirian",
+                "deskripsi" =>
+                    "Motor matic dilaporkan hilang saat pemilik makan malam. Saksi melihat dua orang mencurigakan di area parkir.",
+                "latitude" => -8.2166,
+                "longitude" => 113.1148,
+                "status" => "selesai",
+                "catatan" =>
+                    "Laporan masuk arsip penanganan dan koordinasi patroli setempat.",
+                "petugas_email" => "fitri@geocrime.test",
+                "created_at" => now()->subMonths(2)->setDay(12)->setTime(20, 0),
+            ],
+            [
+                "user_email" => "rina@geocrime.test",
+                "kategori" => "Kecelakaan Tabrakan",
+                "lokasi" => "Lumajang (Kota)",
+                "polsek" => "Polsek Lumajang Kota",
+                "judul_laporan" => "Senggolan motor saat jam berangkat sekolah",
+                "deskripsi" =>
+                    "Dua motor bersenggolan saat arus kendaraan padat. Tidak ada korban berat, namun perlu pengaturan lalu lintas pagi.",
+                "latitude" => -8.1319,
+                "longitude" => 113.222,
+                "status" => "selesai",
+                "catatan" =>
+                    "Petugas mengimbau pengendara berhati-hati di jam padat sekolah.",
+                "petugas_email" => "admin.lumajang@geocrime.test",
+                "created_at" => now()->subMonths(3)->setDay(9)->setTime(6, 50),
+            ],
         ];
 
         foreach ($laporanSamples as $sample) {
@@ -562,6 +793,121 @@ class DatabaseSeeder extends Seeder
                     "isi_berita" => $sample["isi_berita"],
                     "status" => $sample["status"],
                     "published_at" => $sample["published_at"],
+                ],
+            );
+        }
+
+        $emergencySamples = [
+            [
+                "user_email" => "rina@geocrime.test",
+                "polsek" => "Polsek Lumajang Kota",
+                "kode_darurat" => "SOS-LMJ-0001",
+                "status" => "aktif",
+                "latitude" => -8.1342,
+                "longitude" => 113.2231,
+                "alamat_terdeteksi" => "Area Alun-Alun Lumajang, Jogoyudan",
+                "jarak_polsek_km" => 0.8,
+                "waktu_sos" => now()->subMinutes(12),
+                "waktu_dispatch" => null,
+                "waktu_selesai" => null,
+                "petugas_penanganan" => null,
+                "catatan_petugas" =>
+                    "SOS aktif, menunggu dispatch petugas terdekat.",
+                "telemetri" => [
+                    "battery" => 78,
+                    "accuracy_meter" => 18,
+                    "device" => "Android",
+                ],
+            ],
+            [
+                "user_email" => "budi@geocrime.test",
+                "polsek" => "Polsek Sukodono",
+                "kode_darurat" => "SOS-LMJ-0002",
+                "status" => "dalam_penanganan",
+                "latitude" => -8.1129,
+                "longitude" => 113.2326,
+                "alamat_terdeteksi" => "Jl. Raya Sukodono, dekat SPBU Sukodono",
+                "jarak_polsek_km" => 1.4,
+                "waktu_sos" => now()->subMinutes(45),
+                "waktu_dispatch" => now()->subMinutes(32),
+                "waktu_selesai" => null,
+                "petugas_penanganan" => "Unit Patroli Sukodono 01",
+                "catatan_petugas" =>
+                    "Personel telah diberangkatkan menuju titik SOS.",
+                "telemetri" => [
+                    "battery" => 52,
+                    "accuracy_meter" => 24,
+                    "device" => "Android",
+                ],
+            ],
+            [
+                "user_email" => "siti@geocrime.test",
+                "polsek" => "Polsek Pasirian",
+                "kode_darurat" => "SOS-LMJ-0003",
+                "status" => "selesai",
+                "latitude" => -8.2161,
+                "longitude" => 113.1161,
+                "alamat_terdeteksi" => "Jl. Raya Pasirian, area pertokoan",
+                "jarak_polsek_km" => 2.1,
+                "waktu_sos" => now()->subDays(1)->setTime(20, 15),
+                "waktu_dispatch" => now()->subDays(1)->setTime(20, 25),
+                "waktu_selesai" => now()->subDays(1)->setTime(21, 5),
+                "petugas_penanganan" => "Unit Reskrim Pasirian",
+                "catatan_petugas" =>
+                    "Situasi aman. Pelapor sudah didampingi dan diminta membuat laporan lanjutan jika diperlukan.",
+                "telemetri" => [
+                    "battery" => 64,
+                    "accuracy_meter" => 16,
+                    "device" => "iOS",
+                ],
+            ],
+            [
+                "user_email" => "maya@geocrime.test",
+                "polsek" => "Polsek Candipuro",
+                "kode_darurat" => "SOS-LMJ-0004",
+                "status" => "arsip",
+                "latitude" => -8.1887,
+                "longitude" => 113.052,
+                "alamat_terdeteksi" => "Simpang Candipuro arah Pasirian",
+                "jarak_polsek_km" => 1.7,
+                "waktu_sos" => now()->subDays(3)->setTime(18, 35),
+                "waktu_dispatch" => now()->subDays(3)->setTime(18, 42),
+                "waktu_selesai" => now()->subDays(3)->setTime(19, 18),
+                "petugas_penanganan" => "Patroli Candipuro 02",
+                "catatan_petugas" =>
+                    "SOS telah selesai dan masuk arsip riwayat darurat.",
+                "telemetri" => [
+                    "battery" => 41,
+                    "accuracy_meter" => 21,
+                    "device" => "Android",
+                ],
+            ],
+        ];
+
+        foreach ($emergencySamples as $sample) {
+            $user = User::where("email", $sample["user_email"])->first();
+            $polsek = Polsek::where("nama", $sample["polsek"])->first();
+
+            EmergencyReport::updateOrCreate(
+                ["kode_darurat" => $sample["kode_darurat"]],
+                [
+                    "user_id" => $user?->id,
+                    "nearest_polsek_id" => $polsek?->id,
+                    "status" => $sample["status"],
+                    "latitude" => $sample["latitude"],
+                    "longitude" => $sample["longitude"],
+                    "alamat_terdeteksi" => $sample["alamat_terdeteksi"],
+                    "jarak_polsek_km" => $sample["jarak_polsek_km"],
+                    "waktu_sos" => $sample["waktu_sos"],
+                    "waktu_dispatch" => $sample["waktu_dispatch"],
+                    "waktu_selesai" => $sample["waktu_selesai"],
+                    "petugas_penanganan" => $sample["petugas_penanganan"],
+                    "catatan_petugas" => $sample["catatan_petugas"],
+                    "telemetri" => $sample["telemetri"],
+                    "created_at" => $sample["waktu_sos"],
+                    "updated_at" =>
+                        $sample["waktu_selesai"] ??
+                        ($sample["waktu_dispatch"] ?? $sample["waktu_sos"]),
                 ],
             );
         }

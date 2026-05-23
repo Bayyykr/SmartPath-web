@@ -209,36 +209,69 @@ function initializeInfografikCharts() {
     }
 }
 
+function parseDashboardChartData() {
+    const dataElement = document.getElementById("dashboard-chart-data");
+    if (!dataElement) return null;
+
+    try {
+        return JSON.parse(dataElement.textContent || "{}");
+    } catch (error) {
+        console.error("Invalid dashboard chart data", error);
+        return null;
+    }
+}
+
 function initializeCharts() {
     initializeInfografikCharts();
 
+    const chartData = parseDashboardChartData();
     const statistikCanvas = document.getElementById("statistikChart");
     const laporanCanvas = document.getElementById("laporanChart");
     const pieCanvas = document.getElementById("kejahatanKecelakaanChart");
+
+    if (!chartData) return;
+
+    const maxMonthlyValue = Math.max(
+        ...(chartData.monthly?.kejahatan || [0]),
+        ...(chartData.monthly?.kecelakaan || [0]),
+        1,
+    );
+    const maxLocationValue = Math.max(
+        ...(chartData.locations?.totals || [0]),
+        1,
+    );
+    const categoryTotals = chartData.categories?.totals || [];
+    const categorySum = categoryTotals.reduce(
+        (total, value) => total + value,
+        0,
+    );
+    const categoryPercentages = categoryTotals.map((value) =>
+        categorySum > 0 ? Number(((value / categorySum) * 100).toFixed(1)) : 0,
+    );
 
     if (statistikCanvas) {
         new Chart(statistikCanvas, {
             type: "line",
             data: {
-                labels: ["Maret", "April", "Mei", "Juni"],
+                labels: chartData.monthly?.labels || [],
                 datasets: [
                     {
                         label: "Kejahatan",
-                        data: [0.5, 1, 1, 4.7],
+                        data: chartData.monthly?.kejahatan || [],
                         borderColor: "#218cc6",
                         backgroundColor: "#218cc6",
-                        borderWidth: 4,
-                        pointRadius: 0,
-                        tension: 0,
+                        borderWidth: 3,
+                        pointRadius: 2,
+                        tension: 0.25,
                     },
                     {
                         label: "Kecelakaan",
-                        data: [0.4, 1.1, 2, 2],
+                        data: chartData.monthly?.kecelakaan || [],
                         borderColor: "#45b8a9",
                         backgroundColor: "#45b8a9",
-                        borderWidth: 4,
-                        pointRadius: 0,
-                        tension: 0,
+                        borderWidth: 3,
+                        pointRadius: 2,
+                        tension: 0.25,
                     },
                 ],
             },
@@ -251,9 +284,9 @@ function initializeCharts() {
                     },
                     y: {
                         min: 0,
-                        max: 5,
+                        suggestedMax: maxMonthlyValue + 1,
                         ticks: {
-                            stepSize: 0.5,
+                            precision: 0,
                             color: "#111827",
                             font: { size: 9 },
                         },
@@ -268,17 +301,12 @@ function initializeCharts() {
         new Chart(laporanCanvas, {
             type: "bar",
             data: {
-                labels: ["Lumajang", "Sumbersuko", "Kunir", "Yosowilangun"],
+                labels: chartData.locations?.labels || [],
                 datasets: [
                     {
-                        label: "Kejahatan",
-                        data: [1.5, 1.5, 1.5, 2],
-                        backgroundColor: [
-                            "#248cc6",
-                            "#45b8a9",
-                            "#45b8a9",
-                            "#45b8a9",
-                        ],
+                        label: "Total Laporan",
+                        data: chartData.locations?.totals || [],
+                        backgroundColor: "#248cc6",
                         borderWidth: 0,
                         barThickness: 12,
                     },
@@ -290,9 +318,9 @@ function initializeCharts() {
                 scales: {
                     x: {
                         min: 0,
-                        max: 2,
+                        suggestedMax: maxLocationValue + 1,
                         ticks: {
-                            stepSize: 0.5,
+                            precision: 0,
                             color: "#111827",
                             font: { size: 9 },
                         },
@@ -303,32 +331,6 @@ function initializeCharts() {
                         ticks: { color: "#111827", font: { size: 10 } },
                     },
                 },
-                plugins: {
-                    ...baseOptions().plugins,
-                    legend: {
-                        position: "bottom",
-                        labels: {
-                            boxWidth: 7,
-                            boxHeight: 7,
-                            padding: 8,
-                            font: { size: 9 },
-                            generateLabels() {
-                                return [
-                                    {
-                                        text: "Kejahatan",
-                                        fillStyle: "#248cc6",
-                                        strokeStyle: "#248cc6",
-                                    },
-                                    {
-                                        text: "Kecelakaan",
-                                        fillStyle: "#45b8a9",
-                                        strokeStyle: "#45b8a9",
-                                    },
-                                ];
-                            },
-                        },
-                    },
-                },
             },
         });
     }
@@ -337,29 +339,12 @@ function initializeCharts() {
         new Chart(pieCanvas, {
             type: "pie",
             data: {
-                labels: [
-                    "27.3%",
-                    "18.2%",
-                    "9.1%",
-                    "9.1%",
-                    "9.1%",
-                    "5.1%",
-                    "5.1%",
-                    "17.0%",
-                ],
+                labels: chartData.categories?.labels || [],
                 datasets: [
                     {
-                        data: [27.3, 18.2, 9.1, 9.1, 9.1, 5.1, 5.1, 17.0],
-                        backgroundColor: [
-                            "#2693d1",
-                            "#45b8a9",
-                            "#f0c34f",
-                            "#f28c38",
-                            "#ef5b7d",
-                            "#7c5cc4",
-                            "#35a7d6",
-                            "#62c66d",
-                        ],
+                        data: categoryPercentages,
+                        backgroundColor:
+                            chartData.categories?.colors || "#248cc6",
                         borderWidth: 1,
                         borderColor: "#ffffff",
                     },
@@ -374,7 +359,9 @@ function initializeCharts() {
                     tooltip: {
                         callbacks: {
                             label(context) {
-                                return `${context.parsed}%`;
+                                const count =
+                                    categoryTotals[context.dataIndex] || 0;
+                                return `${context.label}: ${count} laporan (${context.parsed}%)`;
                             },
                         },
                     },

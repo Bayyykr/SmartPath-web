@@ -329,6 +329,8 @@
                 color: #6b7280;
             }
 
+
+
             .stats-grid {
                 position: absolute;
                 left: 18px;
@@ -360,13 +362,31 @@
                 height: 142px;
             }
 
+
             .avatar-dot {
-                width: 28px;
-                height: 28px;
+                width: 32px;
+                height: 32px;
                 border-radius: 9999px;
                 background: linear-gradient(135deg, #312e81, #c4b5fd);
                 border: 2px solid #ffffff;
                 box-shadow: 0 1px 4px rgba(0,0,0,.18);
+                overflow: hidden;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                color: #ffffff;
+                font-size: 13px;
+                font-weight: 700;
+            }
+
+            .avatar-dot.has-photo {
+                background: #ffffff;
+            }
+
+            .avatar-dot img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
             }
 
             .master-page {
@@ -1435,6 +1455,7 @@
 
             @media (max-width: 1280px) {
                 .cctv-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
                 .report-summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
                 .report-filter-card { grid-template-columns: repeat(3, minmax(0, 1fr)); }
                 .emergency-meta-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -1511,9 +1532,9 @@
                     justify-content: flex-start;
                 }
 
+
                 .stats-grid { grid-template-columns: 1fr; }
-                .stats-grid { left: 12px; right: 12px; bottom: 12px; }
-                .chart-box { height: 180px; }
+                .chart-box { height: 130px; }
                 .cctv-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
             }
 
@@ -1590,9 +1611,16 @@
                         </button>
                         <div class="page-title">{{ $header ?? 'Dashboard' }}</div>
                     </div>
+                    @php($authUser = Auth::user())
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
-                            <button class="avatar-dot" aria-label="User menu"></button>
+                            <button class="avatar-dot {{ $authUser?->profile_photo ? 'has-photo' : '' }}" type="button" aria-label="Menu pengguna">
+                                @if ($authUser?->profile_photo)
+                                    <img src="{{ asset('storage/' . $authUser->profile_photo) }}" alt="Foto profil {{ $authUser->name }}">
+                                @else
+                                    {{ strtoupper(substr($authUser?->name ?? 'U', 0, 1)) }}
+                                @endif
+                            </button>
                         </x-slot>
 
                         <x-slot name="content">
@@ -1600,12 +1628,9 @@
                                 {{ __('Profile') }}
                             </x-dropdown-link>
 
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <x-dropdown-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
-                                    {{ __('Log Out') }}
-                                </x-dropdown-link>
-                            </form>
+                            <button type="button" class="block w-full px-4 py-2 text-start text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" data-modal-target="logout-confirmation-modal">
+                                {{ __('Log Out') }}
+                            </button>
                         </x-slot>
                     </x-dropdown>
                 </header>
@@ -1613,6 +1638,23 @@
                 <main>
                     {{ $slot }}
                 </main>
+            </div>
+        </div>
+
+        <div id="logout-confirmation-modal" class="modal-backdrop" hidden>
+            <div class="modal-card modal-card-sm">
+                <div class="modal-header">
+                    <h2>Konfirmasi Logout</h2>
+                    <button type="button" data-modal-close="logout-confirmation-modal">×</button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-sm text-gray-700">Apakah Anda yakin ingin keluar dari akun ini?</p>
+                    <form class="modal-footer px-0 pb-0" method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button class="btn-secondary" type="button" data-modal-close="logout-confirmation-modal">Batal</button>
+                        <button class="btn-delete-text" type="submit">Logout</button>
+                    </form>
+                </div>
             </div>
         </div>
 
@@ -1666,8 +1708,21 @@
                     });
                 });
 
+                document.addEventListener('click', function (event) {
+                    const targetId = event.target.closest('[data-modal-target]')?.dataset.modalTarget;
+                    if (targetId) document.getElementById(targetId)?.removeAttribute('hidden');
+
+                    const closeId = event.target.closest('[data-modal-close]')?.dataset.modalClose;
+                    if (closeId) document.getElementById(closeId)?.setAttribute('hidden', true);
+
+                    if (event.target.classList.contains('modal-backdrop')) event.target.setAttribute('hidden', true);
+                });
+
                 document.addEventListener('keydown', function (event) {
-                    if (event.key === 'Escape') closeMobileSidebar();
+                    if (event.key === 'Escape') {
+                        closeMobileSidebar();
+                        document.querySelectorAll('.modal-backdrop:not([hidden])').forEach((modal) => modal.setAttribute('hidden', true));
+                    }
                 });
 
                 desktopQuery.addEventListener('change', function () {

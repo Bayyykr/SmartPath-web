@@ -20,6 +20,7 @@ use Laravel\Sanctum\HasApiTokens;
         "alamat",
         "role",
         "aktif",
+        "profile_photo",
         "password",
     ]),
 ]
