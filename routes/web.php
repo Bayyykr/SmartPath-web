@@ -10,14 +10,91 @@ use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\PolsekController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Masyarakat\MasyarakatController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 
 Route::get("/", function () {
-    return view("welcome");
+    return redirect("/pwa");
+})->name("landing");
+
+$pwaManifestResponse = function () {
+    $path = public_path("build/manifest.webmanifest");
+
+    if (!File::exists($path)) {
+        $path = public_path("manifest.webmanifest");
+    }
+
+    abort_unless(File::exists($path), 404);
+
+    return response(File::get($path), 200, [
+        "Content-Type" => "application/manifest+json; charset=UTF-8",
+        "Cache-Control" => "no-cache, no-store, must-revalidate",
+    ]);
+};
+
+Route::get("/pwa-manifest.webmanifest", $pwaManifestResponse)->name(
+    "pwa.manifest",
+);
+Route::get("/manifest.webmanifest", $pwaManifestResponse);
+
+Route::get("/sw.js", function () {
+    $path = public_path("sw.js");
+
+    abort_unless(File::exists($path), 404);
+
+    return response(File::get($path), 200, [
+        "Content-Type" => "application/javascript; charset=UTF-8",
+        "Cache-Control" => "no-cache, no-store, must-revalidate",
+        "Service-Worker-Allowed" => "/",
+    ]);
 });
 
+Route::get("/icons/{file}", function (string $file) {
+    abort_unless(
+        preg_match('/^[A-Za-z0-9._-]+\\.(png|svg)$/', $file) === 1,
+        404,
+    );
+
+    $path = public_path("icons/{$file}");
+
+    abort_unless(File::exists($path), 404);
+
+    return response(File::get($path), 200, [
+        "Content-Type" => File::mimeType($path) ?: "application/octet-stream",
+        "Cache-Control" => "public, max-age=3600",
+    ]);
+});
+
+Route::get("/pwa", [MasyarakatController::class, "overview"])->name(
+    "masyarakat.overview",
+);
+
 Route::middleware(["auth", "verified"])->group(function () {
-    Route::get("/dashboard", DashboardController::class)->name("dashboard");
+    Route::get("/dashboard", function () {
+        return Auth::user()?->role === "user"
+            ? redirect()->route("masyarakat.home")
+            : app(DashboardController::class)->__invoke();
+    })->name("dashboard");
+
+    Route::prefix("masyarakat")
+        ->name("masyarakat.")
+        ->controller(MasyarakatController::class)
+        ->group(function () {
+            Route::get("/home", "home")->name("home");
+            Route::get("/cctv", "cctv")->name("cctv");
+            Route::get("/laporan", "laporan")->name("laporan.index");
+            Route::get("/laporan/buat", "createLaporan")->name(
+                "laporan.create",
+            );
+            Route::post("/laporan", "storeLaporan")->name("laporan.store");
+            Route::get("/sos", "sos")->name("sos");
+            Route::post("/sos", "storeSos")->name("sos.store");
+            Route::get("/berita", "berita")->name("berita.index");
+            Route::get("/berita/{berita}", "showBerita")->name("berita.show");
+            Route::get("/profile", "profile")->name("profile");
+        });
 
     Route::prefix("admin")
         ->name("admin.")
