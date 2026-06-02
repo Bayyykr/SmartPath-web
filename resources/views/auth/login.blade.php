@@ -1,32 +1,42 @@
-<x-pwa-layout title="Login">
-    <main class="min-h-screen px-7 py-10">
-        <div class="mb-14 mt-10">
-            <h1 class="text-3xl font-extrabold">Helloo!</h1>
-            <p class="mt-2 text-sm text-slate-500">Selamat datang kembali. Anda telah dirindukan selama ini</p>
+<x-guest-layout>
+    <div class="mb-6 text-center">
+        <h1 class="text-2xl font-extrabold text-slate-900">Masuk Website</h1>
+        <p class="mt-2 text-sm text-slate-500">Login untuk mengakses dashboard GeoCrime.</p>
+    </div>
+
+    <x-auth-session-status class="mb-4" :status="session('status')" />
+
+    <form method="POST" action="{{ route('login') }}">
+        @csrf
+
+        <div>
+            <x-input-label for="email" :value="__('Email / Username')" />
+            <x-text-input id="email" class="mt-1 block w-full" type="text" name="email" :value="old('email')" required autofocus autocomplete="username" />
+            <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
-        <x-auth-session-status class="mb-4" :status="session('status')" />
+        <div class="mt-4">
+            <x-input-label for="password" :value="__('Password')" />
+            <x-text-input id="password" class="mt-1 block w-full" type="password" name="password" required autocomplete="current-password" />
+            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        </div>
 
-        <form method="POST" action="{{ route('login') }}" class="space-y-5">
-            @csrf
-            <div>
-                <label for="email" class="text-sm font-semibold text-slate-700">Email / Username</label>
-                <input id="email" class="mt-2 w-full rounded-xl border-slate-200 bg-slate-50" type="text" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" />
-                <x-input-error :messages="$errors->get('email')" class="mt-2" />
-            </div>
-            <div>
-                <label for="password" class="text-sm font-semibold text-slate-700">Sandi</label>
-                <input id="password" class="mt-2 w-full rounded-xl border-slate-200 bg-slate-50" type="password" name="password" required autocomplete="current-password" />
-                <x-input-error :messages="$errors->get('password')" class="mt-2" />
-                @if (Route::has('password.request'))
-                    <a class="mt-2 block text-right text-xs font-semibold text-slate-500" href="{{ route('password.request') }}">Lupa Kata Sandi?</a>
-                @endif
-            </div>
+        <div class="mt-4 flex items-center justify-between">
+            @if (Route::has('password.request'))
+                <a class="text-sm text-gray-600 underline hover:text-gray-900" href="{{ route('password.request') }}">
+                    Lupa password?
+                </a>
+            @endif
 
-            <div class="pt-28">
-                <button class="w-full rounded-xl bg-slate-900 py-3.5 text-sm font-extrabold text-white">Masuk</button>
-                <p class="mt-4 text-center text-xs text-slate-500">Tidak punya akun? <a href="{{ route('register') }}" class="font-bold text-[#3159d4]">Daftar</a></p>
-            </div>
-        </form>
-    </main>
-</x-pwa-layout>
+            <a class="text-sm font-semibold text-[#3159d4] hover:underline" href="{{ route('register') }}">
+                Daftar website
+            </a>
+        </div>
+
+        <div class="mt-6">
+            <x-primary-button class="w-full justify-center">
+                {{ __('Masuk') }}
+            </x-primary-button>
+        </div>
+    </form>
+</x-guest-layout>

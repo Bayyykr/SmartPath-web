@@ -23,6 +23,11 @@ class RegisteredUserController extends Controller
         return view("auth.register");
     }
 
+    public function createPwa(): View
+    {
+        return view("auth.pwa-register");
+    }
+
     /**
      * Handle an incoming registration request.
      *

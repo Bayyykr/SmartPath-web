@@ -1,29 +1,114 @@
 <x-pwa-layout title="Berita">
-    <main class="min-h-screen px-6 pb-28 pt-7">
-        <h1 class="text-2xl font-extrabold">Berita</h1>
-        <p class="text-sm text-slate-500">Dapatkan berita terkini</p>
-        <div class="mt-5 rounded-2xl bg-slate-50 px-4 py-3 text-sm text-slate-400">🔎 Search here</div>
+    <style>
+        .hidden { display: none !important; }
+        .gc-news-page, .gc-news-page * { box-sizing: border-box; }
+        .gc-news-page {
+            min-height: 100vh;
+            max-width: 430px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 42px 28px 96px;
+            color: #111827;
+            font-family: Figtree, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+        .gc-title { margin: 0; color: #2b2b2f; font-size: 18px; font-weight: 800; line-height: 1; letter-spacing: -.035em; }
+        .gc-subtitle { margin: 9px 0 0; color: #6b7280; font-size: 11px; line-height: 1.45; }
+        .gc-search { position: relative; margin-top: 18px; }
+        .gc-search svg { position: absolute; left: 13px; top: 50%; width: 13px; height: 13px; color: #9ca3af; transform: translateY(-50%); }
+        .gc-search input {
+            display: block;
+            width: 100%;
+            height: 34px;
+            border: 0;
+            border-radius: 3px;
+            background: #f4f4f5;
+            padding: 0 12px 0 35px;
+            color: #111827;
+            font-size: 10px;
+            outline: none;
+        }
+        .gc-news-list { margin-top: 18px; }
+        .gc-news-card { display: block; margin-bottom: 22px; color: inherit; text-decoration: none; }
+        .gc-news-image { width: 100%; height: 145px; overflow: hidden; border-radius: 3px; background: linear-gradient(135deg, #1e3a8a, #f97316); }
+        .gc-news-image img { width: 100%; height: 100%; object-fit: cover; }
+        .gc-news-placeholder { display: grid; width: 100%; height: 100%; place-items: center; background: linear-gradient(135deg, #0f2f7e, #0b1026 55%, #f59e0b); color: #fff; text-align: center; }
+        .gc-news-placeholder strong { display: block; font-size: 22px; font-weight: 800; }
+        .gc-news-placeholder span { display: block; margin-top: 5px; font-size: 10px; color: #dbeafe; }
+        .gc-news-heading { margin: 9px 0 0; color: #111827; font-size: 12px; font-weight: 800; line-height: 1.25; letter-spacing: -.01em; }
+        .gc-news-desc { margin: 5px 0 0; color: #6b7280; font-size: 10px; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .gc-empty { display: grid; min-height: 360px; place-items: center; text-align: center; color: #64748b; }
+        .gc-empty svg { width: 118px; height: 118px; }
+        .gc-empty p { margin: 12px 0 0; font-size: 11px; font-weight: 700; }
+        @media (max-width: 380px) { .gc-news-page { padding-right: 22px; padding-left: 22px; } .gc-news-image { height: 132px; } }
+    </style>
 
-        <div class="mt-5 space-y-5">
+    <main class="gc-news-page">
+        <h1 class="gc-title">Berita</h1>
+        <p class="gc-subtitle">Dapatkan berita terkini</p>
+
+        <label class="gc-search" aria-label="Cari berita">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m21 21-4.35-4.35M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
+            <input type="search" placeholder="Search Here" data-news-search>
+        </label>
+
+        <section class="gc-news-list">
             @forelse ($beritas as $berita)
-                <a href="{{ route('masyarakat.berita.show', $berita) }}" class="block overflow-hidden rounded-[1.5rem] bg-white shadow-sm ring-1 ring-slate-100">
-                    <div class="h-36 bg-gradient-to-br from-blue-100 to-orange-100">
+                <a
+                    href="{{ route('masyarakat.berita.show', $berita) }}"
+                    class="gc-news-card"
+                    data-news-card
+                    data-title="{{ Str::lower($berita->judul) }}"
+                    data-content="{{ Str::lower(strip_tags($berita->isi_berita)) }}"
+                >
+                    <div class="gc-news-image">
                         @if ($berita->foto)
-                            <img src="{{ asset('storage/'.$berita->foto) }}" class="h-full w-full object-cover" alt="{{ $berita->judul }}">
+                            <img src="{{ asset('storage/'.$berita->foto) }}" alt="{{ $berita->judul }}">
                         @else
-                            <div class="grid h-full place-items-center text-6xl">📰</div>
+                            <div class="gc-news-placeholder">
+                                <div>
+                                    <strong>GeoCrime News</strong>
+                                    <span>Informasi terbaru untuk masyarakat</span>
+                                </div>
+                            </div>
                         @endif
                     </div>
-                    <div class="p-4">
-                        <h2 class="font-extrabold">{{ $berita->judul }}</h2>
-                        <p class="mt-1 text-xs text-slate-500">{{ optional($berita->published_at ?? $berita->created_at)->format('d M Y, H:i') }}</p>
-                        <p class="mt-2 line-clamp-2 text-sm leading-6 text-slate-500">{{ Str::limit(strip_tags($berita->isi_berita), 120) }}</p>
-                    </div>
+                    <h2 class="gc-news-heading">{{ $berita->judul }}</h2>
+                    <p class="gc-news-desc">{{ Str::limit(strip_tags($berita->isi_berita), 112) }}</p>
                 </a>
             @empty
-                <div class="grid h-72 place-items-center text-center"><div><div class="text-7xl">🗞️</div><p class="mt-4 font-bold text-slate-500">Belum ada berita</p></div></div>
+                <div class="gc-empty">
+                    <div>
+                        <svg viewBox="0 0 160 140" fill="none" aria-hidden="true">
+                            <ellipse cx="80" cy="122" rx="50" ry="9" fill="#E9EDF7"/>
+                            <rect x="37" y="29" width="82" height="88" rx="8" fill="#EFF6FF"/>
+                            <rect x="48" y="43" width="60" height="14" rx="3" fill="#253aa8"/>
+                            <rect x="48" y="67" width="60" height="6" rx="3" fill="#CBD5E1"/>
+                            <rect x="48" y="82" width="48" height="6" rx="3" fill="#CBD5E1"/>
+                            <rect x="48" y="97" width="55" height="6" rx="3" fill="#CBD5E1"/>
+                            <circle cx="116" cy="33" r="17" fill="#FDBA38"/>
+                            <path d="M109 33h14M116 26v14" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+                        </svg>
+                        <p>Belum ada berita</p>
+                    </div>
+                </div>
             @endforelse
-        </div>
+        </section>
     </main>
+
     @include('masyarakat.components')
+
+    <script>
+        (() => {
+            const search = document.querySelector('[data-news-search]');
+            const cards = Array.from(document.querySelectorAll('[data-news-card]'));
+
+            search?.addEventListener('input', () => {
+                const query = search.value.trim().toLowerCase();
+                cards.forEach((card) => {
+                    const text = `${card.dataset.title || ''} ${card.dataset.content || ''}`;
+                    card.style.display = text.includes(query) ? 'block' : 'none';
+                });
+            });
+        })();
+    </script>
 </x-pwa-layout>
