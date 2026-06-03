@@ -3,6 +3,21 @@ import "leaflet/dist/leaflet.css";
 
 window.L = L;
 
+// Helper to get color based on crime density
+function getColor(d) {
+    return d >= 20 ? '#B30000' : // Kritis (Merah Tua)
+           d >= 10 ? '#E53935' : // Sangat Rawan (Merah)
+           d >= 1  ? '#FB8C00' : // Rawan (Oranye)
+                     '#E0E0E0';  // Aman (Abu-Abu)
+}
+
+function getFillOpacity(d) {
+    return d >= 20 ? 0.8 :
+           d >= 10 ? 0.6 :
+           d >= 1  ? 0.4 :
+                     0.2;
+}
+
 function crimeIcon(color) {
     return L.divIcon({
         className: "",
@@ -12,36 +27,18 @@ function crimeIcon(color) {
     });
 }
 
-function sosIcon(color) {
-    return L.divIcon({
-        className: "",
-        html: `<span style="display:block;width:26px;height:26px;border-radius:999px;background:${color};border:4px solid rgba(255,255,255,.92);box-shadow:0 0 0 6px rgba(239,68,68,.22),0 2px 8px rgba(0,0,0,.35);"></span>`,
-        iconSize: [26, 26],
-        iconAnchor: [13, 13],
-    });
-}
-
-function parseMapData() {
-    const dataElement = document.getElementById("dashboard-map-data");
-    if (!dataElement) return { points: [], areas: [] };
-
-    try {
-        const data = JSON.parse(dataElement.textContent || "{}");
-        return {
-            points: Array.isArray(data.points) ? data.points : [],
-            areas: Array.isArray(data.areas) ? data.areas : [],
-        };
-    } catch (error) {
-        console.error("Invalid dashboard map data", error);
-        return { points: [], areas: [] };
-    }
-}
+// Global state
+let crimeData = [];
+let currentView = 'heatmap'; // 'heatmap' or 'marker'
+let map;
+let geojsonLayer;
+let markerLayer;
 
 document.addEventListener("DOMContentLoaded", () => {
     const mapElement = document.getElementById("map");
     if (!mapElement) return;
 
-    const map = L.map("map", {
+    map = L.map("map", {
         zoomControl: true,
         attributionControl: true,
     }).setView([-8.1322, 113.2245], 12);
@@ -50,79 +47,132 @@ document.addEventListener("DOMContentLoaded", () => {
         attribution: "&copy; OpenStreetMap",
     }).addTo(map);
 
-    const mapData = parseMapData();
-    const boundsLayers = [];
-
-    mapData.areas.forEach((area) => {
-        const color = area.color || "#f97316";
-        let layer = null;
-
-        const fillOpacity = Number(area.opacity || 0.18);
-
-        if (area.geojson) {
-            layer = L.geoJSON(area.geojson, {
-                style: {
-                    color,
-                    weight: 2,
-                    fillColor: color,
-                    fillOpacity,
-                },
-            }).addTo(map);
-        } else if (area.lat && area.lng) {
-            layer = L.circle([area.lat, area.lng], {
-                radius: area.radius || 2500,
-                color,
-                weight: 2,
-                fillColor: color,
-                fillOpacity,
-            }).addTo(map);
-        }
-
-        if (!layer) return;
-
-        const difference = Number(area.difference || 0);
-        const trendText =
-            area.trend === "meningkat"
-                ? `Meningkat +${difference}`
-                : area.trend === "menurun"
-                  ? `Menurun ${difference}`
-                  : "Stabil";
-
-        layer.bindPopup(`
-            <strong>${area.name || "Area Rawan"}</strong><br>
-            <small>Status: ${area.status || "Rawan"}</small><br>
-            <small>Range: ${area.range || "-"}</small><br>
-            <small>Bulan ini: ${area.total || 0} laporan</small><br>
-            <small>Bulan lalu: ${area.previous_total || 0} laporan</small><br>
-            <small>Tren: ${trendText}</small>
-        `);
-
-        boundsLayers.push(layer);
-    });
-
-    const points = mapData.points.filter((point) => point.lat && point.lng);
-
-    points.forEach((point) => {
-        const marker = L.marker([point.lat, point.lng], {
-            icon:
-                point.type === "sos"
-                    ? sosIcon(point.color || "#ef4444")
-                    : crimeIcon(point.color || "#248cc6"),
-        }).addTo(map);
-
-        marker.bindPopup(`
-            <strong>${point.title || "Laporan"}</strong><br>
-            <span>${point.subtitle || "-"}</span><br>
-            <small>Status: ${(point.status || "-").replaceAll("_", " ")}</small>
-        `);
-
-        boundsLayers.push(marker);
-    });
-
-    if (boundsLayers.length > 0) {
-        map.fitBounds(L.featureGroup(boundsLayers).getBounds(), {
-            padding: [40, 40],
-            maxZoom: 13,
-        });
-    }
+    fetchMapData();
+    createLegend();
+    createToggle();
 });
+
+async function fetchMapData() {
+    try {
+        const response = await fetch('/api/map/statistics');
+        if (!response.ok) throw new Error('Network response was not ok');
+        crimeData = await response.json();
+        console.log("Fetched crime data:", crimeData);
+        updateMap();
+    } catch (error) {
+        console.error("Error fetching map data:", error);
+    }
+}
+
+function updateMap() {
+    // Only remove specific layers instead of ALL layers to preserve base map
+    if (geojsonLayer) map.removeLayer(geojsonLayer);
+    if (markerLayer) map.removeLayer(markerLayer);
+
+    if (currentView === 'heatmap') {
+        renderHeatmap();
+    } else {
+        renderMarkers();
+    }
+}
+
+function renderHeatmap() {
+    const features = crimeData.map(item => ({
+        "type": "Feature",
+        "properties": {
+            "name": item.nama_lokasi,
+            "total": item.total_laporan
+        },
+        "geometry": item.polygon_geojson
+    })).filter(f => f.geometry);
+
+    console.log("Rendering heatmap features:", features);
+
+    if (features.length === 0) {
+        console.warn("No features to render on heatmap");
+        return;
+    }
+
+    geojsonLayer = L.geoJSON({ "type": "FeatureCollection", "features": features }, {
+        style: (feature) => ({
+            fillColor: getColor(feature.properties.total),
+            weight: 1.5,
+            opacity: 1,
+            color: 'white',
+            fillOpacity: getFillOpacity(feature.properties.total)
+        }),
+        onEachFeature: (feature, layer) => {
+            layer.bindTooltip(`Kecamatan: ${feature.properties.name}<br>Total Laporan: ${feature.properties.total}`);
+            layer.on({
+                mouseover: (e) => {
+                    const l = e.target;
+                    l.setStyle({ weight: 3, color: '#333', fillOpacity: 0.9 });
+                    l.bringToFront();
+                },
+                mouseout: (e) => {
+                    geojsonLayer.resetStyle(e.target);
+                },
+                click: (e) => {
+                    map.fitBounds(e.target.getBounds());
+                }
+            });
+        }
+    }).addTo(map);
+}
+
+function renderMarkers() {
+    markerLayer = L.layerGroup();
+    crimeData.forEach(item => {
+        item.reports.forEach(report => {
+            if (report.latitude && report.longitude) {
+                // Use category color if available, otherwise default blue
+                const color = report.kategori ? report.kategori.warna_marker : '#248cc6'; 
+                L.marker([report.latitude, report.longitude], {
+                    icon: crimeIcon(color)
+                })
+                .bindPopup(`<strong>${report.judul_laporan}</strong><br>Status: ${report.status}`)
+                .addTo(markerLayer);
+            }
+        });
+    });
+    markerLayer.addTo(map);
+}
+
+function createLegend() {
+    const legend = L.control({ position: 'bottomright' });
+    legend.onAdd = function (map) {
+        const div = L.DomUtil.create('div', 'info legend');
+        div.style.background = 'white';
+        div.style.padding = '10px';
+        div.style.borderRadius = '4px';
+        div.style.boxShadow = '0 0 15px rgba(0,0,0,0.2)';
+        
+        const grades = [0, 1, 10, 20];
+        const labels = ['Aman', 'Rawan (1-9)', 'Sangat Rawan (10-19)', 'Kritis (>= 20)'];
+        
+        div.innerHTML += '<strong>Tingkat Kriminalitas</strong><br>';
+        for (let i = 0; i < grades.length; i++) {
+            div.innerHTML += `<i style="display:inline-block;width:15px;height:15px;margin-right:5px;background:${getColor(grades[i] + (i===0?0:1))}"></i> ${labels[i]}<br>`;
+        }
+        return div;
+    };
+    legend.addTo(map);
+}
+
+function createToggle() {
+    const toggleControl = L.control({ position: 'topright' });
+    toggleControl.onAdd = function (map) {
+        const container = L.DomUtil.create('div', 'leaflet-bar');
+        const btn = L.DomUtil.create('button', '', container);
+        btn.innerHTML = `<strong>Tampilan:</strong> ${currentView.toUpperCase()}`;
+        btn.style.cssText = 'padding: 8px 12px; cursor: pointer; background: white; border: none; border-radius: 4px; font-weight: bold; box-shadow: 0 1px 3px rgba(0,0,0,0.2);';
+        
+        btn.onclick = function() {
+            currentView = currentView === 'heatmap' ? 'markers' : 'heatmap';
+            btn.innerHTML = `<strong>Tampilan:</strong> ${currentView.toUpperCase()}`;
+            updateMap();
+        };
+        return container;
+    };
+    toggleControl.addTo(map);
+}

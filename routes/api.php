@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\MapDataController;
 use App\Http\Controllers\Api\MasyarakatApiController;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
@@ -16,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Enjoy building your API!
 |
 */
+
+// --- Admin/Map API Routes ---
+Route::get("/map/statistics", [MapDataController::class, "getStatistics"]);
 
 Route::middleware(["auth:sanctum"])->group(function () {
     // --- Auth API Routes ---
