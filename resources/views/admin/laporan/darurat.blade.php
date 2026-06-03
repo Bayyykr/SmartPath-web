@@ -32,13 +32,9 @@
         </div>
 
         <div class="emergency-map-panel">
-            <div class="emergency-map-placeholder">
-                @forelse ($items as $item)
-                    <a class="sos-map-marker sos-marker-position-{{ ($loop->index % 8) + 1 }} {{ $item->status === 'aktif' ? 'is-blinking' : '' }}" target="_blank" rel="noopener" href="https://www.google.com/maps?q={{ $item->latitude }},{{ $item->longitude }}" title="{{ $item->kode_darurat }}">!</a>
-                @empty
-                    <div class="text-center text-sm font-semibold text-gray-500">Tidak ada sinyal SOS aktif.</div>
-                @endforelse
-            </div>
+            <script id="sos-map-data" type="application/json">@json($items->items())</script>
+            <div id="sos-map" class="h-[500px] w-full rounded-2xl border shadow-lg"></div>
+            @vite(['resources/js/sos-map.js'])
             <div class="emergency-map-info">
                 <h2>Komponen visual dashboard</h2>
                 <p>Pin merah berkedip adalah representasi titik SOS. Klik pin atau tombol Maps pada tabel untuk membuka koordinat GPS korban.</p>

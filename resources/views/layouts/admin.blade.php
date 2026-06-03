@@ -1442,12 +1442,16 @@
                 font-weight: 900;
             }
 
-            .report-empty-state h2 {
-                margin-top: 14px;
-                color: #111827;
-                font-size: 18px;
-                font-weight: 900;
+            .sos-marker-active {
+                animation: pulse-red 2s infinite;
             }
+
+            @keyframes pulse-red {
+                0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }
+                70% { box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); }
+                100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+            }
+            #sos-map { z-index: 1; }
 
             .report-empty-state p {
                 margin-top: 5px;
