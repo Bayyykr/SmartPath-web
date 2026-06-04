@@ -345,11 +345,11 @@
 
             .card {
                 background: #ffffff;
-                border: 1px solid var(--border);
-                border-radius: 2px;
-                padding: 10px 12px 8px;
+                border: 1px solid #e5e7eb;
+                border-radius: 12px;
+                padding: 18px;
                 min-height: 180px;
-                box-shadow: 0 8px 24px rgba(15, 23, 42, .12);
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
             }
 
             .card-title {
@@ -989,7 +989,7 @@
                 align-items: center;
                 justify-content: center;
                 border-radius: 6px;
-                background: #111827;
+                background: #4caf50;
                 color: #ffffff;
             }
 
@@ -1034,20 +1034,13 @@
                 align-items: center;
                 justify-content: space-between;
                 gap: 20px;
-                border-radius: 18px;
+                border: 1px solid #e5e7eb;
+                border-radius: 12px;
+                background: #ffffff;
                 padding: 26px 28px;
                 margin-bottom: 18px;
                 overflow: hidden;
-            }
-
-            .report-hero {
-                border: 1px solid #e5e7eb;
-                background: linear-gradient(135deg, #f9fafb 0%, #ffffff 58%, #f3f4f6 100%);
-            }
-
-            .emergency-hero {
-                border: 1px solid #e5e7eb;
-                background: linear-gradient(135deg, #f9fafb 0%, #ffffff 58%, #f3f4f6 100%);
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
             }
 
             .report-eyebrow {
@@ -1088,7 +1081,7 @@
                 align-items: center;
                 justify-content: center;
                 flex-shrink: 0;
-                border-radius: 22px;
+                border-radius: 12px;
             }
 
             .report-hero-icon {
@@ -1106,7 +1099,7 @@
                 content: "";
                 position: absolute;
                 inset: -8px;
-                border-radius: 28px;
+                border-radius: 12px;
                 border: 2px solid rgba(17, 24, 39, .16);
                 animation: emergency-pulse 1.4s ease-out infinite;
             }
@@ -1133,19 +1126,13 @@
                 position: relative;
                 overflow: hidden;
                 border: 1px solid #e5e7eb;
-                border-radius: 16px;
+                border-radius: 12px;
                 background: #ffffff;
                 padding: 18px;
-                box-shadow: 0 12px 30px rgba(15, 23, 42, .06);
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
             }
 
-            .report-stat-card::before {
-                content: "";
-                position: absolute;
-                inset: 0 auto 0 0;
-                width: 5px;
-                background: #111827;
-            }
+            .report-stat-card::before { display: none; }
 
             .report-stat-card span {
                 color: #64748b;
@@ -1172,18 +1159,9 @@
             .report-stat-card.accent-yellow::before,
             .report-stat-card.accent-green::before,
             .report-stat-card.accent-blue::before,
-            .report-stat-card.accent-indigo::before { background: #111827; }
+            .report-stat-card.accent-indigo::before { background: #e5e7eb; }
 
-            .report-page .btn-primary,
-            .infographic-page .btn-primary {
-                background: #111827;
-                color: #ffffff;
-            }
 
-            .report-page .btn-edit,
-            .infographic-page .btn-edit {
-                background: #111827;
-            }
 
             .report-filter-card {
                 display: grid;
@@ -1191,10 +1169,11 @@
                 gap: 12px;
                 align-items: end;
                 border: 1px solid #e5e7eb;
-                border-radius: 16px;
-                background: #f8fafc;
-                padding: 16px;
+                border-radius: 12px;
+                background: #ffffff;
+                padding: 18px;
                 margin-bottom: 18px;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
             }
 
             .report-filter-actions {
@@ -1204,10 +1183,10 @@
 
             .report-table-card {
                 border: 1px solid #e5e7eb;
-                border-radius: 16px;
+                border-radius: 12px;
                 background: #ffffff;
                 padding: 18px;
-                box-shadow: 0 12px 30px rgba(15, 23, 42, .05);
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
             }
 
             .report-section-header {
@@ -1242,7 +1221,7 @@
                 min-height: 280px;
                 overflow: hidden;
                 border: 1px solid #e5e7eb;
-                border-radius: 18px;
+                border-radius: 12px;
                 background:
                     linear-gradient(90deg, rgba(148, 163, 184, .16) 1px, transparent 1px),
                     linear-gradient(rgba(148, 163, 184, .16) 1px, transparent 1px),
@@ -1298,8 +1277,8 @@
 
             .emergency-map-info {
                 border: 1px solid #e5e7eb;
-                border-radius: 18px;
-                background: #f9fafb;
+                border-radius: 12px;
+                background: #ffffff;
                 padding: 18px;
             }
 
@@ -1340,11 +1319,10 @@
                 grid-template-columns: 1fr auto;
                 gap: 18px;
                 border: 1px solid #e5e7eb;
-                border-left: 5px solid #111827;
-                border-radius: 16px;
+                border-radius: 12px;
                 background: #ffffff;
                 padding: 18px;
-                box-shadow: 0 12px 30px rgba(17, 24, 39, .06);
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
             }
 
             .emergency-card-top {

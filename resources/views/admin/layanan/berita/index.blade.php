@@ -28,7 +28,7 @@
         .berita-table td {
             padding: 10px 8px;
             font-size: 12px;
-            vertical-align: top;
+            vertical-align: middle;
             overflow: hidden;
         }
 
@@ -47,26 +47,34 @@
             line-clamp: 2;
         }
 
+        .berita-table th:last-child,
         .berita-actions-cell {
+            text-align: center;
+            overflow: visible;
             white-space: normal;
         }
 
         .berita-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 4px;
-            max-width: 96px;
+            display: grid;
+            grid-template-columns: repeat(2, 28px);
+            justify-content: center;
+            gap: 6px;
+            width: max-content;
+            margin: 0 auto;
         }
 
         .berita-actions form {
-            display: inline-flex;
+            display: contents;
         }
 
         .berita-actions .btn-edit,
         .berita-actions .btn-delete {
-            width: 26px;
-            height: 26px;
+            width: 28px;
+            height: 28px;
+            padding: 0;
+            flex: 0 0 28px;
             font-size: 12px;
+            line-height: 1;
         }
 
         @media (max-width: 1024px) {
@@ -93,14 +101,14 @@
         <div id="berita-results">
             <table class="master-table berita-table">
                 <colgroup>
-                    <col style="width: 6%;">
-                    <col style="width: 28%;">
+                    <col style="width: 5%;">
+                    <col style="width: 27%;">
                     <col style="width: 13%;">
-                    <col class="hide-md" style="width: 11%;">
+                    <col class="hide-md" style="width: 10%;">
+                    <col style="width: 12%;">
                     <col style="width: 13%;">
-                    <col style="width: 15%;">
-                    <col style="width: 8%;">
-                    <col style="width: 6%;">
+                    <col style="width: 9%;">
+                    <col style="width: 11%;">
                 </colgroup>
                 <thead>
                     <tr>
