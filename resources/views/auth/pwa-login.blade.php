@@ -43,8 +43,6 @@
 
         .gc-auth-form {
             display: flex;
-            min-height: calc(100vh - 190px);
-            flex: 1;
             flex-direction: column;
         }
 
@@ -119,7 +117,7 @@
         }
 
         .gc-form-bottom {
-            margin-top: auto;
+            margin-top: 20px;
             padding-bottom: 6px;
         }
 
@@ -187,7 +185,14 @@
 
         <x-auth-session-status class="gc-status" :status="session('status')" />
 
-        <form method="POST" action="{{ route('login') }}" class="gc-auth-form">
+        @if(session('success'))
+            <div style="color: green; margin-bottom: 10px;">{{ session('success') }}</div>
+        @endif
+        @if(session('error'))
+            <div style="color: red; margin-bottom: 10px;">{{ session('error') }}</div>
+        @endif
+
+        <form method="POST" action="{{ route('pwa.login.store') }}" class="gc-auth-form">
             @csrf
 
             <div>

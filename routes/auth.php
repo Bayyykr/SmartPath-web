@@ -26,6 +26,9 @@ Route::middleware("guest")->group(function () {
         "register",
     );
 
+    Route::post("pwa/register", [RegisteredUserController::class, "storePwa"])->name("pwa.register.store");
+    Route::post("pwa/login", [AuthenticatedSessionController::class, "storePwa"])->name("pwa.login.store");
+
     Route::post("register", [RegisteredUserController::class, "store"]);
 
     Route::get("login", [

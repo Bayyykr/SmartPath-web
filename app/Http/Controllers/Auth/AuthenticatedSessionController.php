@@ -29,11 +29,28 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
+        try {
+            $request->authenticate();
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return redirect()->back()->withErrors($e->errors())->with('error', 'Login gagal.');
+        }
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route("dashboard", absolute: false));
+        return redirect()->intended(route("dashboard", absolute: false))->with('success', 'Anda berhasil masuk!');
+    }
+
+    public function storePwa(LoginRequest $request): RedirectResponse
+    {
+        try {
+            $request->authenticate();
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return redirect()->back()->withErrors($e->errors())->with('error', 'Login gagal.');
+        }
+
+        $request->session()->regenerate();
+
+        return redirect()->intended(route("masyarakat.home", absolute: false))->with('success', 'Anda berhasil masuk!');
     }
 
     /**

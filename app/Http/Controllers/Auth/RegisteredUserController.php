@@ -35,6 +35,16 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        return $this->handleRegistration($request, false);
+    }
+
+    public function storePwa(Request $request): RedirectResponse
+    {
+        return $this->handleRegistration($request, true);
+    }
+
+    protected function handleRegistration(Request $request, bool $isPwa): RedirectResponse
+    {
         $request->validate([
             "name" => ["required", "string", "max:255"],
             "username" => [
@@ -66,6 +76,10 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route("dashboard", absolute: false));
+        if ($isPwa) {
+            return redirect(route("masyarakat.home", absolute: false))->with('success', 'Pendaftaran berhasil!');
+        }
+
+        return redirect(route("dashboard", absolute: false))->with('success', 'Pendaftaran berhasil!');
     }
 }

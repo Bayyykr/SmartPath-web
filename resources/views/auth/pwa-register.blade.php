@@ -33,8 +33,6 @@
         }
         .gc-auth-form {
             display: flex;
-            min-height: calc(100vh - 180px);
-            flex: 1;
             flex-direction: column;
         }
         .gc-field { margin-bottom: 17px; }
@@ -81,7 +79,7 @@
         }
         .gc-password-toggle svg { width: 15px; height: 15px; }
         .gc-form-bottom {
-            margin-top: auto;
+            margin-top: 20px;
             padding-bottom: 6px;
         }
         .gc-button {
@@ -131,7 +129,7 @@
             <p class="gc-auth-subtitle">Nikmati Beragam Fitur dan Layanan!</p>
         </div>
 
-        <form method="POST" action="{{ route('register') }}" class="gc-auth-form" data-pwa-register-form>
+        <form method="POST" action="{{ route('pwa.register.store') }}" class="gc-auth-form" data-pwa-register-form>
             @csrf
 
             <div>
