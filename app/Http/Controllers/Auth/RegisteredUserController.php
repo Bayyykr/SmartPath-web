@@ -74,7 +74,7 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Auth::login($user);
+        Auth::login($user, $isPwa);
 
         if ($isPwa) {
             return redirect(route("masyarakat.home", absolute: false))->with('success', 'Pendaftaran berhasil!');

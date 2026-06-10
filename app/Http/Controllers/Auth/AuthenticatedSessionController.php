@@ -42,6 +42,9 @@ class AuthenticatedSessionController extends Controller
 
     public function storePwa(LoginRequest $request): RedirectResponse
     {
+        // Force the remember token to be true for PWA logins to persist the session
+        $request->merge(['remember' => true]);
+
         try {
             $request->authenticate();
         } catch (\Illuminate\Validation\ValidationException $e) {

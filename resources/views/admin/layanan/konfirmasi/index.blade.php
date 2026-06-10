@@ -82,8 +82,7 @@
                     @endforelse
                 </tbody>
             </table>
-
-            <p class="mt-4 text-sm text-gray-600">Menampilkan {{ $items->firstItem() ?? 0 }} Dari {{ $items->lastItem() ?? 0 }} Data</p>
+            
             <div class="mt-4">{{ $items->links() }}</div>
 
             @foreach ($items as $item)

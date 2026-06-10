@@ -296,7 +296,7 @@
                     <path d="M9 9.5h6.3c2.4 0 4.2 1.8 4.2 4.2 0 2.5-1.9 4.5-4.4 4.5H9v-3.1h5.7c.8 0 1.4-.6 1.4-1.4 0-.8-.6-1.3-1.4-1.3H12v1.5H9V9.5Z" fill="#253269" />
                 </svg>
             </span>
-            <span>GeoCrime</span>
+            <span>SmartPath</span>
         </header>
 
         <div class="gc-slider-window">

@@ -31,11 +31,11 @@ export default defineConfig({
             ],
             manifestFilename: "manifest.webmanifest",
             manifest: {
-                name: "GeoCrime Masyarakat",
-                short_name: "GeoCrime",
+                name: "SmartPath Masyarakat",
+                short_name: "SmartPath",
                 description:
                     "PWA pelaporan kejahatan, CCTV, SOS, peta GIS, dan berita untuk masyarakat.",
-                id: "/geocrime-pwa",
+                id: "/smartpath-pwa",
                 start_url: "/pwa?source=pwa",
                 lang: "id",
                 scope: "/",

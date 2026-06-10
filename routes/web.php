@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 
 Route::get("/", function () {
-    return redirect("/pwa");
+    return view("welcome");
 })->name("landing");
 
 $pwaManifestResponse = function () {
@@ -67,11 +67,11 @@ Route::get("/icons/{file}", function (string $file) {
     ]);
 });
 
-Route::get("/pwa", [MasyarakatController::class, "overview"])->name(
-    "masyarakat.overview",
-);
+Route::get("/pwa", [MasyarakatController::class, "overview"])
+    ->middleware("prevent-back-history")
+    ->name("masyarakat.overview");
 
-Route::middleware(["auth", "verified"])->group(function () {
+Route::middleware(["auth", "verified", "prevent-back-history"])->group(function () {
     Route::get("/dashboard", function () {
         return Auth::user()?->role === "user"
             ? redirect()->route("masyarakat.home")

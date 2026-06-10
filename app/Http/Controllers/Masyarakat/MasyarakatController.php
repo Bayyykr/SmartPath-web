@@ -18,8 +18,11 @@ use Illuminate\View\View;
 
 class MasyarakatController extends Controller
 {
-    public function overview(): View
+    public function overview(): View|\Illuminate\Http\RedirectResponse
     {
+        if (Auth::check()) {
+            return redirect()->route('masyarakat.home');
+        }
         return view('masyarakat.overview');
     }
 

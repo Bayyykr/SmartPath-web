@@ -1,4 +1,4 @@
-@props(['title' => 'GeoCrime'])
+@props(['title' => 'SmartPath'])
 
 @php
     $viteManifestPath = public_path('build/manifest.json');
@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <x-pwa-head />
-    <title>{{ $title }} - GeoCrime</title>
+    <title>{{ $title }} - SmartPath</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700,800&display=swap" rel="stylesheet" />
 
@@ -41,7 +41,7 @@
         <div class="flex items-start gap-3">
             <div class="grid h-10 w-10 flex-none place-items-center rounded-xl bg-white/10 text-xl">▦</div>
             <div class="min-w-0 flex-1">
-                <p class="text-sm font-bold">Install GeoCrime</p>
+                <p class="text-sm font-bold">Install SmartPath</p>
                 <p id="pwa-install-message" class="mt-1 text-xs leading-5 text-slate-300">Pasang aplikasi agar lebih mudah dibuka dari layar utama.</p>
                 <div class="mt-3 flex gap-2">
                     <button id="pwa-install-button" type="button" class="rounded-xl bg-[#3159d4] px-4 py-2 text-xs font-bold text-white">Install App</button>
@@ -93,7 +93,7 @@
 
             const showBanner = () => banner?.classList.remove('hidden');
             const hideBanner = () => banner?.classList.add('hidden');
-            const log = (...args) => console.log('[GeoCrime PWA]', ...args);
+            const log = (...args) => console.log('[SmartPath PWA]', ...args);
 
             const withTimeout = (promise, timeoutMs, fallback) => Promise.race([
                 promise,
@@ -317,6 +317,12 @@
                     }, 3000);
                 });
             }
+            // Force reload when navigating back/forward from cached history to prevent showing authenticated pages after logout
+            window.addEventListener('pageshow', (event) => {
+                if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+                    window.location.reload();
+                }
+            });
         })();
     </script>
 </body>
