@@ -8,11 +8,9 @@
 
         <title>Login SmartPath - Admin & Operator</title>
 
-        <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:300,400,500,600,700,800&display=swap" rel="stylesheet" />
 
-        <!-- Scripts & Styles -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
         <style>
@@ -31,7 +29,6 @@
                 color: var(--text);
             }
 
-            /* Admin Input Styling */
             .admin-form-input {
                 width: 100%;
                 border: 1px solid #d1d5db;
@@ -88,28 +85,18 @@
 
         <div class="min-h-screen w-full grid grid-cols-1 lg:grid-cols-12">
             
-            <!-- Left Side: Interactive Branding Visual Showcase (Light Theme matching Admin panel) -->
             <div class="hidden lg:flex lg:col-span-5 gradient-left-light text-gray-900 p-12 flex-col justify-between relative overflow-hidden border-r border-gray-200">
-                <!-- Grid decoration background -->
                 <div class="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#000_1px,transparent_1px),linear-gradient(to_bottom,#000_1px,transparent_1px)] bg-[size:24px_24px]"></div>
-                <!-- Glowing orb in background -->
                 <div class="absolute w-80 h-80 bg-blue-500/10 rounded-full blur-[100px] -bottom-10 -left-10"></div>
                 <div class="absolute w-80 h-80 bg-indigo-500/10 rounded-full blur-[100px] -top-10 -right-10"></div>
 
-                <!-- Header Brand Logo -->
                 <div class="relative z-10">
                     <a href="/" class="inline-flex items-center gap-3">
-                        <span class="grid w-10 h-10 place-items-center border border-gray-300 rounded-xl bg-white shadow-sm">
-                            <svg class="h-6 w-6 text-gray-900" viewBox="0 0 28 28" fill="none">
-                                <path d="M6 5.5h16a1.5 1.5 0 0 1 1.5 1.5v15A1.5 1.5 0 0 1 22 23.5H6A1.5 1.5 0 0 1 4.5 22V7A1.5 1.5 0 0 1 6 5.5Z" stroke="currentColor" stroke-width="2.2" />
-                                <path d="M9 9.5h6.3c2.4 0 4.2 1.8 4.2 4.2 0 2.5-1.9 4.5-4.4 4.5H9v-3.1h5.7c.8 0 1.4-.6 1.4-1.4 0-.8-.6-1.3-1.4-1.3H12v1.5H9V9.5Z" fill="currentColor" />
-                            </svg>
-                        </span>
+                            <img src="/icons/icon_app.png" alt="SmartPath Logo" class="h-6 w-6 object-contain">
                         <span class="text-xl font-extrabold tracking-tight text-gray-950">Smart<span class="text-blue-600">Path</span></span>
                     </a>
                 </div>
 
-                <!-- Showcase Center Copywriting -->
                 <div class="relative z-10 space-y-6 max-w-sm my-auto">
                     <span class="text-xs font-bold uppercase tracking-wider text-blue-600">Portal Keamanan Internal</span>
                     <h2 class="text-3xl font-extrabold leading-tight text-gray-950">
@@ -119,7 +106,6 @@
                         Halaman log masuk khusus bagi aparat kepolisian, admin polsek, dan operator sistem untuk memproses laporan masyarakat secara berkala dan realtime.
                     </p>
                     
-                    <!-- Showcase Box matching admin cards -->
                     <div class="admin-card p-5 space-y-3">
                         <div class="flex items-center justify-between text-xs text-gray-500 border-b border-gray-100 pb-2">
                             <span class="font-bold">ADMIN CONTROL</span>
@@ -129,16 +115,13 @@
                     </div>
                 </div>
 
-                <!-- Footer Copyright -->
                 <div class="relative z-10 text-xs text-gray-400">
                     &copy; {{ date('Y') }} SmartPath. Aplikasi Pendukung Keamanan Masyarakat.
                 </div>
             </div>
 
-            <!-- Right Side: Clean Form Layout (Cardless/Full Selayang) -->
             <div class="col-span-12 lg:col-span-7 bg-login-panel flex flex-col justify-between p-8 sm:p-12 md:p-16">
-                
-                <!-- Top Row: Back link & Mobile Brand Logo -->
+
                 <div class="flex items-center justify-between">
                     <a href="/" class="inline-flex items-center gap-2 text-sm font-semibold text-gray-600 hover:text-gray-950 transition duration-200">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -147,35 +130,26 @@
                         Kembali ke Home
                     </a>
 
-                    <!-- Show only on mobile/tablet -->
                     <a href="/" class="flex lg:hidden items-center gap-2">
                         <span class="grid w-8 h-8 place-items-center border border-gray-300 rounded-lg bg-white shadow-sm">
-                            <svg class="h-5 w-5 text-gray-900" viewBox="0 0 28 28" fill="none">
-                                <path d="M6 5.5h16a1.5 1.5 0 0 1 1.5 1.5v15A1.5 1.5 0 0 1 22 23.5H6A1.5 1.5 0 0 1 4.5 22V7A1.5 1.5 0 0 1 6 5.5Z" stroke="currentColor" stroke-width="2.2" />
-                                <path d="M9 9.5h6.3c2.4 0 4.2 1.8 4.2 4.2 0 2.5-1.9 4.5-4.4 4.5H9v-3.1h5.7c.8 0 1.4-.6 1.4-1.4 0-.8-.6-1.3-1.4-1.3H12v1.5H9V9.5Z" fill="currentColor" />
-                            </svg>
+                            <img src="/icons/icon_app.png" alt="SmartPath Logo" class="h-5 w-5 object-contain">
                         </span>
                         <span class="text-lg font-black tracking-tight text-gray-950">Smart<span class="text-blue-600">Path</span></span>
                     </a>
                 </div>
 
-                <!-- Centered Login Form Area -->
                 <div class="max-w-md w-full mx-auto my-auto py-10 space-y-8">
-                    
-                    <!-- Heading -->
+
                     <div class="space-y-2 text-left">
                         <h1 class="text-3xl font-extrabold tracking-tight text-gray-950">Masuk Akun</h1>
                         <p class="text-sm text-gray-500">Gunakan akun admin atau operator terdaftar Anda untuk masuk.</p>
                     </div>
 
-                    <!-- Session Status -->
                     <x-auth-session-status class="text-sm font-medium text-emerald-600 bg-emerald-50 p-4 rounded-lg border border-emerald-100" :status="session('status')" />
 
-                    <!-- Form -->
                     <form method="POST" action="{{ route('login') }}" class="space-y-6">
                         @csrf
 
-                        <!-- Email Address -->
                         <div class="space-y-1.5">
                             <label for="email" class="text-sm font-bold text-gray-700">Email / Username</label>
                             <div class="relative">
@@ -197,7 +171,6 @@
                             <x-input-error :messages="$errors->get('email')" class="text-xs text-rose-600 font-semibold mt-1" />
                         </div>
 
-                        <!-- Password -->
                         <div class="space-y-1.5">
                             <div class="flex items-center justify-between">
                                 <label for="password" class="text-sm font-bold text-gray-700">Password</label>
@@ -230,7 +203,6 @@
                             <x-input-error :messages="$errors->get('password')" class="text-xs text-rose-600 font-semibold mt-1" />
                         </div>
 
-                        <!-- Remember Me & Register link -->
                         <div class="flex items-center justify-between pt-1">
                             <label class="inline-flex items-center cursor-pointer">
                                 <input type="checkbox" name="remember" class="rounded border-gray-300 text-blue-600 shadow-sm focus:ring-blue-500/25 focus:ring-offset-0">
@@ -241,7 +213,6 @@
                             </a>
                         </div>
 
-                        <!-- Submit Button -->
                         <div class="pt-2">
                             <button type="submit" class="btn-admin-submit">
                                 Masuk Aplikasi
@@ -251,19 +222,16 @@
 
                 </div>
 
-                <!-- Footer Copyright for Mobile -->
                 <div class="text-center text-xs text-gray-400 block lg:hidden pt-4">
                     &copy; {{ date('Y') }} SmartPath. Hak Cipta Dilindungi.
                 </div>
-                
-                <!-- Spacer for layout alignment -->
+
                 <div class="hidden lg:block"></div>
 
             </div>
 
         </div>
 
-        <!-- Script for Password Visibility Toggle -->
         <script>
             document.addEventListener('DOMContentLoaded', () => {
                 const passwordInput = document.getElementById('password');

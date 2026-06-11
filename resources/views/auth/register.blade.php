@@ -1,7 +1,7 @@
 <x-guest-layout>
     <div class="mb-6 text-center">
         <h1 class="text-2xl font-extrabold text-slate-900">Daftar Website</h1>
-        <p class="mt-2 text-sm text-slate-500">Buat akun GeoCrime untuk mengakses layanan.</p>
+        <p class="mt-2 text-sm text-slate-500">Buat akun SmartPath untuk mengakses layanan.</p>
     </div>
 
     <form method="POST" action="{{ route('register') }}">
@@ -23,6 +23,12 @@
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" class="mt-1 block w-full" type="email" name="email" :value="old('email')" required autocomplete="email" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        </div>
+
+        <div class="mt-4">
+            <x-input-label for="telepon" :value="__('Nomor Telepon')" />
+            <x-text-input id="telepon" class="mt-1 block w-full" type="tel" name="telepon" :value="old('telepon')" required placeholder="Contoh: 08123456789" />
+            <x-input-error :messages="$errors->get('telepon')" class="mt-2" />
         </div>
 
         <div class="mt-4">

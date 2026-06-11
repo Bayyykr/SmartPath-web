@@ -6,14 +6,8 @@
 
 <nav class="sidebar" aria-label="Navigasi admin">
     <div class="sidebar-brand">
-        <div class="sidebar-brand-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 4h16v16H4z" />
-                <path d="M8 8h4a4 4 0 1 1 0 8H8z" />
-                <path d="M8 12h8" />
-            </svg>
-        </div>
-        <span class="sidebar-brand-text">GeoCrime</span>
+        <img src="/icons/icon_app.png" alt="SmartPath Logo" class="w-8 h-8 object-contain">
+        <span class="sidebar-brand-text">SmartPath</span>
     </div>
 
     <div>

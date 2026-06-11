@@ -13,11 +13,9 @@
         </script>
         <title>SmartPath - Portal Keamanan & Laporan Kejahatan Masyarakat</title>
 
-        <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:300,400,500,600,700,800&display=swap" rel="stylesheet" />
 
-        <!-- Scripts & Styles -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
         <style>
@@ -81,16 +79,10 @@
     </head>
     <body class="min-h-screen flex flex-col justify-between overflow-x-hidden antialiased">
 
-        <!-- Navigation Bar -->
         <header class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm w-full">
             <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
                 <a href="/" class="flex items-center gap-3">
-                    <span class="grid w-10 h-10 place-items-center border-2 border-gray-900 rounded-lg bg-white shadow-sm">
-                        <svg class="h-6 w-6 text-gray-900" viewBox="0 0 28 28" fill="none">
-                            <path d="M6 5.5h16a1.5 1.5 0 0 1 1.5 1.5v15A1.5 1.5 0 0 1 22 23.5H6A1.5 1.5 0 0 1 4.5 22V7A1.5 1.5 0 0 1 6 5.5Z" stroke="currentColor" stroke-width="2.2" />
-                            <path d="M9 9.5h6.3c2.4 0 4.2 1.8 4.2 4.2 0 2.5-1.9 4.5-4.4 4.5H9v-3.1h5.7c.8 0 1.4-.6 1.4-1.4 0-.8-.6-1.3-1.4-1.3H12v1.5H9V9.5Z" fill="currentColor" />
-                        </svg>
-                    </span>
+                    <img src="/icons/icon_app.png" alt="SmartPath Logo" class="w-7 h-7 object-contain">
                     <span class="text-xl font-extrabold tracking-tight text-gray-950">Smart<span class="text-blue-600">Path</span></span>
                 </a>
 
@@ -108,10 +100,8 @@
             </div>
         </header>
 
-        <!-- Hero Section -->
         <section class="py-16 md:py-24 px-6 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
-            <!-- Left Info -->
             <div class="lg:col-span-7 space-y-6">
                 <div class="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 border border-blue-200 rounded-full text-xs font-bold text-blue-700 uppercase tracking-wide">
                     🛡️ Sistem Pemantauan Wilayah Terintegrasi
@@ -136,7 +126,6 @@
                         Download Aplikasi (PWA)
                     </button>
                     
-                    <!-- Login Admin -->
                     <a href="{{ route('login') }}" class="btn-admin-secondary gap-2">
                         Login sebagai Admin
                         <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -145,7 +134,6 @@
                     </a>
                 </div>
 
-                <!-- iOS Manual Guide -->
                 <div id="ios-install-tip" class="hidden max-w-md p-4 rounded-lg border border-amber-200 bg-amber-50 text-amber-800 text-sm">
                     <div class="flex gap-2">
                         <svg class="w-5 h-5 flex-shrink-0 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -158,7 +146,6 @@
                 </div>
             </div>
 
-            <!-- Right Visual Mockup (Matches Admin Cards template) -->
             <div class="lg:col-span-5 flex justify-center">
                 <div class="w-full max-w-md admin-card p-6 space-y-6">
                     <div class="flex items-center justify-between border-b border-gray-100 pb-4">
@@ -167,7 +154,6 @@
                     </div>
                     
                     <div class="space-y-4">
-                        <!-- Stats 1 -->
                         <div class="bg-gray-50 border border-gray-100 p-4 rounded-lg flex items-center justify-between">
                             <div class="space-y-1">
                                 <p class="text-xs text-gray-500 uppercase font-semibold">Tingkat Penanganan</p>
@@ -176,7 +162,6 @@
                             <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full">Sangat Cepat</span>
                         </div>
 
-                        <!-- Info 2 -->
                         <div class="bg-gray-50 border border-gray-100 p-4 rounded-lg flex items-center justify-between">
                             <div class="space-y-1">
                                 <p class="text-xs text-gray-500 uppercase font-semibold">CCTV Kota Terhubung</p>
@@ -195,7 +180,6 @@
             </div>
         </section>
 
-        <!-- Informative Features Section -->
         <section class="bg-white py-20 px-6 border-t border-gray-200">
             <div class="max-w-7xl mx-auto space-y-12">
                 <div class="text-center max-w-3xl mx-auto space-y-4">
@@ -208,7 +192,6 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Feature 1 -->
                     <div class="admin-card p-6 space-y-4 hover:shadow-md transition duration-200">
                         <div class="w-12 h-12 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -221,7 +204,6 @@
                         </p>
                     </div>
 
-                    <!-- Feature 2 -->
                     <div class="admin-card p-6 space-y-4 hover:shadow-md transition duration-200">
                         <div class="w-12 h-12 rounded-lg bg-red-50 flex items-center justify-center text-red-600">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -234,7 +216,6 @@
                         </p>
                     </div>
 
-                    <!-- Feature 3 -->
                     <div class="admin-card p-6 space-y-4 hover:shadow-md transition duration-200">
                         <div class="w-12 h-12 rounded-lg bg-amber-50 flex items-center justify-center text-amber-600">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -247,7 +228,6 @@
                         </p>
                     </div>
 
-                    <!-- Feature 4 -->
                     <div class="admin-card p-6 space-y-4 hover:shadow-md transition duration-200">
                         <div class="w-12 h-12 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -260,7 +240,6 @@
                         </p>
                     </div>
 
-                    <!-- Feature 5 -->
                     <div class="admin-card p-6 space-y-4 hover:shadow-md transition duration-200">
                         <div class="w-12 h-12 rounded-lg bg-purple-50 flex items-center justify-center text-purple-600">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -273,7 +252,6 @@
                         </p>
                     </div>
 
-                    <!-- Feature 6 -->
                     <div class="admin-card p-6 space-y-4 hover:shadow-md transition duration-200">
                         <div class="w-12 h-12 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -289,7 +267,6 @@
             </div>
         </section>
 
-        <!-- How it works Section -->
         <section class="py-20 px-6 max-w-7xl mx-auto w-full space-y-12">
             <div class="text-center max-w-3xl mx-auto space-y-4">
                 <h2 class="text-3xl md:text-4xl font-extrabold text-gray-950">Cara Kerja SmartPath</h2>
@@ -297,7 +274,6 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Step 1 -->
                 <div class="admin-card p-6 relative space-y-4">
                     <span class="absolute top-4 right-6 text-5xl font-black text-blue-50 select-none">01</span>
                     <h3 class="text-lg font-bold text-gray-950">Unduh & Registrasi</h3>
@@ -306,7 +282,6 @@
                     </p>
                 </div>
 
-                <!-- Step 2 -->
                 <div class="admin-card p-6 relative space-y-4">
                     <span class="absolute top-4 right-6 text-5xl font-black text-blue-50 select-none">02</span>
                     <h3 class="text-lg font-bold text-gray-950">Pantau Kondisi Wilayah</h3>
@@ -315,7 +290,6 @@
                     </p>
                 </div>
 
-                <!-- Step 3 -->
                 <div class="admin-card p-6 relative space-y-4">
                     <span class="absolute top-4 right-6 text-5xl font-black text-blue-50 select-none">03</span>
                     <h3 class="text-lg font-bold text-gray-950">Gunakan Menu SOS & Laporan</h3>
@@ -326,7 +300,6 @@
             </div>
         </section>
 
-        <!-- Footer -->
         <footer class="border-t border-gray-200 bg-white py-12 px-6 text-center text-sm text-gray-500">
             <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
                 <p>&copy; {{ date('Y') }} SmartPath. Hak Cipta Dilindungi.</p>
@@ -337,7 +310,6 @@
             </div>
         </footer>
 
-        <!-- PWA Installation Script -->
         <script>
             document.addEventListener('DOMContentLoaded', () => {
                 const isStandalone = () => {

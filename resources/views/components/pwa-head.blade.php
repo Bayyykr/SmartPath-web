@@ -12,12 +12,12 @@
 <link rel="manifest" href="/pwa-manifest.webmanifest?v={{ $pwaManifestVersion }}">
 <link rel="shortcut icon" href="/favicon.ico">
 <link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="icon" href="/favicon-192.png" sizes="192x192" type="image/png">
-<link rel="icon" href="/favicon-512.png" sizes="512x512" type="image/png">
-<link rel="icon" href="/icons/icon-192.png" sizes="192x192" type="image/png">
-<link rel="icon" href="/icons/icon-512.png" sizes="512x512" type="image/png">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
-<link rel="apple-touch-icon" href="/icons/icon-192.png" sizes="192x192">
+<link rel="icon" href="/icons/icon_app.png" sizes="192x192" type="image/png">
+<link rel="icon" href="/icons/icon_app.png" sizes="512x512" type="image/png">
+<link rel="icon" href="/icons/icon_app.png" sizes="192x192" type="image/png">
+<link rel="icon" href="/icons/icon_app.png" sizes="512x512" type="image/png">
+<link rel="apple-touch-icon" href="/icons/icon_app.png" sizes="180x180">
+<link rel="apple-touch-icon" href="/icons/icon_app.png" sizes="192x192">
 <script>
     window.geocrimePwaBeforeInstallPromptFired = false;
     window.geocrimePwaInstallPrompt = null;

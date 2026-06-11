@@ -38,8 +38,7 @@
     </div>
 
     <div id="pwa-install-banner" class="fixed inset-x-4 bottom-4 z-50 mx-auto hidden max-w-md rounded-2xl bg-slate-950 p-4 text-white shadow-2xl">
-        <div class="flex items-start gap-3">
-            <div class="grid h-10 w-10 flex-none place-items-center rounded-xl bg-white/10 text-xl">▦</div>
+            <img src="/icons/icon_app.png" alt="SmartPath Logo" class="h-10 w-10 flex-none object-contain rounded-xl bg-white p-1">
             <div class="min-w-0 flex-1">
                 <p class="text-sm font-bold">Install SmartPath</p>
                 <p id="pwa-install-message" class="mt-1 text-xs leading-5 text-slate-300">Pasang aplikasi agar lebih mudah dibuka dari layar utama.</p>

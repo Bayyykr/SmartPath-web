@@ -152,6 +152,12 @@
                 </div>
 
                 <div class="gc-field">
+                    <label for="telepon" class="gc-label">Nomor Telepon</label>
+                    <input id="telepon" class="gc-input" type="tel" name="telepon" value="{{ old('telepon') }}" required placeholder="Contoh: 08123456789" />
+                    <x-input-error :messages="$errors->get('telepon')" class="gc-error" />
+                </div>
+
+                <div class="gc-field">
                     <label for="password" class="gc-label">Sandi</label>
                     <div class="gc-input-wrap">
                         <input id="password" class="gc-input gc-input-password" type="password" name="password" required autocomplete="new-password" />
