@@ -135,7 +135,11 @@
                     @if ($user->profile_photo)
                         <img src="{{ asset('storage/' . $user->profile_photo) }}" alt="{{ $user->name }}" id="photoImg">
                     @else
-                        <span id="photoPlaceholder">👤</span>
+                        <span id="photoPlaceholder" class="flex h-full w-full items-center justify-center bg-gray-200 text-gray-400">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                            </svg>
+                        </span>
                     @endif
                 </div>
                 <div>

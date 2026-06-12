@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             PolsekSeeder::class,
             CategorySeeder::class,
-            LocationSeeder::class, // handles location_id mapping in Polseks as well
+            LocationSeeder::class, 
+            LocationGeoJsonSeeder::class, 
             LaporanSeeder::class,
             BeritaSeeder::class,
             EmergencyReportSeeder::class,
