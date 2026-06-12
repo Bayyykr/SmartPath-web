@@ -61,8 +61,8 @@ class RegisteredUserController extends Controller
                 "max:255",
                 "unique:" . User::class,
             ],
-            "telepon" => ["required", "string", "max:30"],
-            "password" => ["required", "confirmed", Rules\Password::defaults()],
+            "telepon" => ["required", "numeric", "digits_between:10,13"],
+            "password" => ["required", "confirmed", Rules\Password::min(8)],
         ]);
 
         $user = User::create([

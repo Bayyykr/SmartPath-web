@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             LocationSeeder::class, 
             LocationGeoJsonSeeder::class, 
+            CctvSeeder::class,
             LaporanSeeder::class,
             BeritaSeeder::class,
             EmergencyReportSeeder::class,

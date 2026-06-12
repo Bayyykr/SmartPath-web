@@ -149,21 +149,21 @@
                             <!-- Nomor Telepon -->
                             <div class="space-y-1.5">
                                 <label for="telepon" class="text-sm font-bold text-gray-700">Nomor Telepon</label>
-                                <input id="telepon" class="admin-form-input" type="tel" name="telepon" placeholder="Contoh: 081234567890" value="{{ old('telepon') }}" required />
+                                <input id="telepon" class="admin-form-input" type="tel" name="telepon" placeholder="Contoh: 081234567890" value="{{ old('telepon') }}" required pattern="[0-9]{10,13}" maxlength="13" title="Nomor telepon harus berupa angka 10-13 digit" />
                                 <x-input-error :messages="$errors->get('telepon')" class="text-xs text-rose-600 font-semibold mt-1" />
                             </div>
 
                             <!-- Password -->
                             <div class="space-y-1.5">
                                 <label for="password" class="text-sm font-bold text-gray-700">Kata Sandi</label>
-                                <input id="password" class="admin-form-input" type="password" name="password" placeholder="••••••••" required autocomplete="new-password" />
+                                <input id="password" class="admin-form-input" type="password" name="password" placeholder="••••••••" required autocomplete="new-password" minlength="8" />
                                 <x-input-error :messages="$errors->get('password')" class="text-xs text-rose-600 font-semibold mt-1" />
                             </div>
 
                             <!-- Konfirmasi Password -->
                             <div class="space-y-1.5">
                                 <label for="password_confirmation" class="text-sm font-bold text-gray-700">Konfirmasi Kata Sandi</label>
-                                <input id="password_confirmation" class="admin-form-input" type="password" name="password_confirmation" placeholder="••••••••" required autocomplete="new-password" />
+                                <input id="password_confirmation" class="admin-form-input" type="password" name="password_confirmation" placeholder="••••••••" required autocomplete="new-password" minlength="8" />
                                 <x-input-error :messages="$errors->get('password_confirmation')" class="text-xs text-rose-600 font-semibold mt-1" />
                             </div>
                         </div>

@@ -153,14 +153,14 @@
 
                 <div class="gc-field">
                     <label for="telepon" class="gc-label">Nomor Telepon</label>
-                    <input id="telepon" class="gc-input" type="tel" name="telepon" value="{{ old('telepon') }}" required placeholder="Contoh: 08123456789" />
+                    <input id="telepon" class="gc-input" type="tel" name="telepon" value="{{ old('telepon') }}" required placeholder="Contoh: 08123456789" pattern="[0-9]{10,13}" maxlength="13" title="Nomor telepon harus berupa angka 10-13 digit" />
                     <x-input-error :messages="$errors->get('telepon')" class="gc-error" />
                 </div>
 
                 <div class="gc-field">
                     <label for="password" class="gc-label">Sandi</label>
                     <div class="gc-input-wrap">
-                        <input id="password" class="gc-input gc-input-password" type="password" name="password" required autocomplete="new-password" />
+                        <input id="password" class="gc-input gc-input-password" type="password" name="password" required autocomplete="new-password" minlength="8" />
                         <button class="gc-password-toggle" type="button" data-password-toggle="password" aria-label="Tampilkan sandi">
                             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                                 <path d="M2.75 12s3.25-5.5 9.25-5.5S21.25 12 21.25 12 18 17.5 12 17.5 2.75 12 2.75 12Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
