@@ -27,6 +27,7 @@ class ProfileUpdateRequest extends FormRequest
                 Rule::unique(User::class)->ignore($this->user()->id),
             ],
             "profile_photo" => ["nullable", "image", "max:2048"],
+            "alamat" => ["nullable", "string", "max:500"],
         ];
     }
 }

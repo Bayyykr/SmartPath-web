@@ -24,8 +24,137 @@
         .gc-avatar-fallback { display: grid; width: 100%; height: 100%; place-items: center; color: #253aa8; font-size: 20px; font-weight: 800; }
         .gc-greeting { margin: 0; color: #2b2b2f; font-size: 17px; font-weight: 800; line-height: 1.1; letter-spacing: -.035em; }
         .gc-subtitle { margin: 5px 0 0; color: #6b7280; font-size: 11px; line-height: 1.35; }
-        .gc-notification { display: grid; width: 32px; height: 32px; flex: none; place-items: center; border-radius: 999px; background: #f5f6f8; color: #253aa8; }
+        .gc-notification { display: grid; width: 32px; height: 32px; flex: none; place-items: center; border-radius: 999px; background: #f5f6f8; color: #253aa8; border: 0; cursor: pointer; }
         .gc-notification svg { width: 16px; height: 16px; }
+
+        /* Notification Drawer & List Styles */
+        .gc-notification-badge {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 8px;
+            height: 8px;
+            border-radius: 9999px;
+            background: #ef4444;
+            border: 1.5px solid #f5f6f8;
+        }
+        .gc-drawer {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: flex;
+            align-items: end;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(4px);
+        }
+        .gc-drawer-content {
+            width: 100%;
+            max-width: 430px;
+            background: #ffffff;
+            border-radius: 20px 20px 0 0;
+            padding: 24px 20px calc(24px + env(safe-area-inset-bottom));
+            box-shadow: 0 -10px 25px rgba(0, 0, 0, 0.1);
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            transform: translateY(100%);
+            transition: transform 0.3s ease-out;
+        }
+        .gc-drawer-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .gc-drawer-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: #0f172a;
+        }
+        .gc-drawer-close {
+            font-size: 18px;
+            color: #64748b;
+            cursor: pointer;
+            border: 0;
+            background: none;
+            padding: 4px;
+        }
+        .gc-notif-list {
+            overflow-y: auto;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .gc-notif-item {
+            display: flex;
+            gap: 14px;
+            padding: 12px;
+            border-radius: 10px;
+            background: #f8fafc;
+            border: 1px solid #f1f5f9;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s;
+            align-items: start;
+        }
+        .gc-notif-item:hover {
+            background: #f1f5f9;
+            border-color: #e2e8f0;
+        }
+        .gc-notif-icon-box {
+            font-size: 18px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+        .gc-notif-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .gc-notif-title {
+            font-weight: 800;
+            font-size: 11.5px;
+            color: #1e293b;
+            margin: 0 0 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .gc-notif-unread-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: #3b82f6;
+            display: inline-block;
+        }
+        .gc-notif-desc {
+            font-size: 10.5px;
+            color: #64748b;
+            line-height: 1.4;
+            margin: 0;
+        }
+        .gc-notif-time {
+            font-size: 8.5px;
+            color: #94a3b8;
+            margin-top: 6px;
+            display: block;
+        }
+        .gc-notif-empty {
+            text-align: center;
+            padding: 40px 20px;
+            color: #64748b;
+            font-size: 12px;
+        }
         .gc-section-head { display: flex; align-items: center; justify-content: space-between; margin-top: 29px; }
         .gc-section-title { margin: 0; color: #2f333b; font-size: 12px; font-weight: 800; letter-spacing: -.02em; }
         .gc-see-all { color: #253aa8; font-size: 9px; font-weight: 800; text-decoration: none; }
@@ -34,7 +163,8 @@
         .gc-risk-card-title { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 0; color: #2d3340; font-size: 11px; font-weight: 800; }
         .gc-risk-card-title span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .gc-risk-art { display: grid; height: 90px; margin-top: 10px; place-items: center; }
-        .gc-risk-art svg { width: 100%; max-width: 120px; height: 90px; }
+        .gc-risk-art svg,
+        .gc-risk-art img { width: 100%; max-width: 120px; height: 90px; object-fit: contain; }
         .gc-cctv-list { margin-top: 12px; }
         .gc-cctv-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 0; color: inherit; text-decoration: none; }
         .gc-cctv-left { display: flex; min-width: 0; align-items: center; gap: 10px; }
@@ -46,7 +176,7 @@
         .gc-map-panel { margin-top: 12px; overflow: hidden; border: 1px solid #e7e9ee; border-radius: 3px; background: #eef1f4; }
         .gc-map-header { display: flex; align-items: center; gap: 8px; padding: 8px 10px; background: #fff; color: #2f333b; font-size: 11px; font-weight: 800; }
         .gc-map-header svg { width: 14px; height: 14px; }
-        .gc-map-canvas { position: relative; height: 380px; overflow: hidden; background: #edf3f7; }
+        #map { height: 380px; width: 100%; z-index: 1; }
         .gc-map-canvas::before {
             content: "";
             position: absolute;
@@ -96,9 +226,12 @@
                     <p class="gc-subtitle">Perhatikan sekeliling Anda, tetap aman.</p>
                 </div>
             </div>
-            <span class="gc-notification" aria-label="Notifikasi">
+            <button type="button" onclick="showNotificationDrawer()" class="gc-notification relative" aria-label="Notifikasi">
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9a6 6 0 1 1 12 0c0 7 2.5 7 2.5 8.5H3.5C3.5 16 6 16 6 9Z" stroke="currentColor" stroke-width="2"/><path d="M9.5 19a2.5 2.5 0 0 0 5 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-            </span>
+                @if ($notifications->where('is_unread', true)->count() > 0)
+                    <span class="gc-notification-badge"></span>
+                @endif
+            </button>
         </header>
 
         <section>
@@ -107,25 +240,14 @@
             </div>
 
             <div class="gc-risk-grid">
-                @if ($crimeCategory)
-                    <a href="#street-map" class="gc-risk-card">
-                        <p class="gc-risk-card-title"><span>{{ $crimeCategory->nama_kategori }}</span><span>›</span></p>
+                @foreach ($locations->take(2) as $loc)
+                    <a href="#street-map" class="gc-risk-card" onclick="if(window.focusLocation) { window.focusLocation('{{ $loc->nama_lokasi }}'); }">
+                        <p class="gc-risk-card-title"><span>{{ $loc->nama_lokasi }}</span><span>›</span></p>
                         <div class="gc-risk-art">
-                            <svg viewBox="0 0 140 100" fill="none" aria-hidden="true">
-                                <rect x="14" y="25" width="44" height="58" rx="4" fill="#23356F"/><rect x="22" y="35" width="10" height="18" fill="#4CC0F0"/><rect x="40" y="39" width="10" height="14" fill="#FFCF4A"/><path d="M50 77c9-18 23-27 42-27h11c8 0 14 6 14 14v19H50v-6Z" fill="#FFB62E"/><circle cx="70" cy="83" r="9" fill="#111827"/><circle cx="105" cy="83" r="9" fill="#111827"/><path d="M62 55 48 41" stroke="#F04438" stroke-width="5" stroke-linecap="round"/><path d="M75 43 64 28" stroke="#F97316" stroke-width="5" stroke-linecap="round"/><circle cx="96" cy="31" r="13" fill="#22C55E"/><path d="M91 31h10M96 26v10" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>
+                            <img src="{{ asset('overview_map.png') }}" alt="{{ $loc->nama_lokasi }}" class="h-full max-h-[90px] w-full max-w-[120px] object-contain">
                         </div>
                     </a>
-                @endif
-
-                @if ($accidentCategory && $accidentCategory?->id !== $crimeCategory?->id)
-                    <a href="#street-map" class="gc-risk-card">
-                        <p class="gc-risk-card-title"><span>{{ $accidentCategory->nama_kategori }}</span><span>›</span></p>
-                        <div class="gc-risk-art">
-                            <svg viewBox="0 0 140 100" fill="none" aria-hidden="true">
-                                <circle cx="70" cy="49" r="38" fill="#FFE66D"/><path d="M31 70h79l-8-24H47L31 70Z" fill="#FF8A3D"/><rect x="49" y="36" width="37" height="20" rx="4" fill="#DDF4FF"/><circle cx="50" cy="71" r="11" fill="#27366E"/><circle cx="94" cy="71" r="11" fill="#27366E"/><path d="M111 70h11" stroke="#EF4444" stroke-width="5" stroke-linecap="round"/><path d="M23 70H13" stroke="#EF4444" stroke-width="5" stroke-linecap="round"/><path d="M105 32h12M111 26v12" stroke="#F97316" stroke-width="4" stroke-linecap="round"/></svg>
-                        </div>
-                    </a>
-                @endif
+                @endforeach
             </div>
         </section>
 
@@ -163,28 +285,65 @@
                     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m4 7 5-2 6 2 5-2v12l-5 2-6-2-5 2V7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 5v12M15 7v12" stroke="currentColor" stroke-width="2"/></svg>
                     <span>Street Maps</span>
                 </div>
-                <div class="gc-map-canvas">
-                    <div class="gc-map-legend">
-                        <div class="gc-map-legend-row"><span class="gc-map-legend-dot" style="background:#2563eb"></span> CCTV</div>
-                        <div class="gc-map-legend-row"><span class="gc-map-legend-dot" style="background:#ef4444"></span> Crime</div>
-                        <div class="gc-map-legend-row"><span class="gc-map-legend-dot" style="background:#f59e0b"></span> Accident</div>
-                    </div>
-                    <div class="gc-map-zoom"><span>+</span><span>−</span></div>
-                    <div class="gc-map-road one"></div>
-                    <div class="gc-map-road two"></div>
-                    <div class="gc-map-road three"></div>
-                    <div class="gc-map-river"></div>
-                    <span class="gc-map-label" style="left:42px;top:72px;">Jl. Panglima Sudirman</span>
-                    <span class="gc-map-label" style="right:34px;top:122px;">Daerah Rawan</span>
-                    <span class="gc-map-label" style="left:40px;bottom:54px;">Nasional street</span>
-                    <span class="gc-map-marker pin"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5Z"/></svg></span>
-                    <span class="gc-map-marker pin2"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5Z"/></svg></span>
-                    <span class="gc-map-marker cam"><svg viewBox="0 0 24 24" fill="none"><path d="M4 8h11a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H4V8Z" stroke="currentColor" stroke-width="2"/><path d="m17 11 4-2v7l-4-2" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></span>
-                    <span class="gc-map-marker warn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3 2 20h20L12 3Zm1 13h-2v2h2v-2Zm0-7h-2v5h2V9Z"/></svg></span>
-                </div>
+                <div id="map"></div>
             </div>
         </section>
     </main>
+
+    <!-- Notification Drawer -->
+    <div id="notification-drawer" class="gc-drawer hidden" onclick="if(event.target === this) hideNotificationDrawer()">
+        <div id="notification-drawer-content" class="gc-drawer-content">
+            <div class="gc-drawer-header">
+                <span class="gc-drawer-title">Notifikasi Aktivitas</span>
+                <button type="button" onclick="hideNotificationDrawer()" class="gc-drawer-close">×</button>
+            </div>
+            
+            <div class="gc-notif-list">
+                @forelse ($notifications as $notif)
+                    <a href="{{ route('masyarakat.laporan.show', $notif['id']) }}" class="gc-notif-item">
+                        <span class="gc-notif-icon-box">
+                            {{ $notif['icon'] }}
+                        </span>
+                        <span class="gc-notif-info">
+                            <span class="gc-notif-title">
+                                <span>{{ $notif['title'] }}</span>
+                                @if($notif['is_unread'])
+                                    <span class="gc-notif-unread-dot"></span>
+                                @endif
+                            </span>
+                            <p class="gc-notif-desc">{{ $notif['desc'] }}</p>
+                            <span class="gc-notif-time">{{ $notif['time'] }}</span>
+                        </span>
+                    </a>
+                @empty
+                    <div class="gc-notif-empty">
+                        <p style="font-size: 24px; margin-bottom: 8px;">📭</p>
+                        <p>Belum ada notifikasi baru untuk Anda.</p>
+                    </div>
+                @endforelse
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showNotificationDrawer() {
+            const drawer = document.getElementById('notification-drawer');
+            const content = document.getElementById('notification-drawer-content');
+            drawer.classList.remove('hidden');
+            setTimeout(() => {
+                content.style.transform = 'translateY(0)';
+            }, 10);
+        }
+
+        function hideNotificationDrawer() {
+            const drawer = document.getElementById('notification-drawer');
+            const content = document.getElementById('notification-drawer-content');
+            content.style.transform = 'translateY(100%)';
+            setTimeout(() => {
+                drawer.classList.add('hidden');
+            }, 300);
+        }
+    </script>
 
     @include('masyarakat.components')
 </x-pwa-layout>

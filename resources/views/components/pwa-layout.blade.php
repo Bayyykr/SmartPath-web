@@ -16,6 +16,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <x-pwa-head />
     <title>{{ $title }} - SmartPath</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700,800&display=swap" rel="stylesheet" />
 

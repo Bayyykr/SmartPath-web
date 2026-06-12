@@ -215,8 +215,8 @@
                     </div>
                     <x-input-error :messages="$errors->get('password')" class="gc-error" />
 
-                    @if (Route::has('password.request'))
-                        <a class="gc-forgot" href="{{ route('password.request') }}">Lupa Kata Sandi?</a>
+                    @if (Route::has('pwa.password.request'))
+                        <a class="gc-forgot" href="{{ route('pwa.password.request') }}">Lupa Kata Sandi?</a>
                     @endif
                 </div>
             </div>

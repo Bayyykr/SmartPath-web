@@ -89,11 +89,16 @@ Route::middleware(["auth", "verified", "prevent-back-history"])->group(function 
                 "laporan.create",
             );
             Route::post("/laporan", "storeLaporan")->name("laporan.store");
+            Route::get("/laporan/{laporan}", "showLaporan")->name("laporan.show");
             Route::get("/sos", "sos")->name("sos");
             Route::post("/sos", "storeSos")->name("sos.store");
             Route::get("/berita", "berita")->name("berita.index");
             Route::get("/berita/{berita}", "showBerita")->name("berita.show");
             Route::get("/profile", "profile")->name("profile");
+            Route::get("/profile/edit", "editProfile")->name("profile.edit");
+            Route::patch("/profile/edit", "updateProfile")->name("profile.update");
+            Route::put("/profile/password", "updatePassword")->name("profile.password");
+            Route::get("/bantuan", "bantuan")->name("bantuan");
         });
 
     Route::prefix("admin")

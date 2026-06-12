@@ -15,6 +15,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
+use App\Http\Requests\ProfileUpdateRequest;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 class MasyarakatController extends Controller
 {
@@ -56,7 +60,54 @@ class MasyarakatController extends Controller
                 'color' => $laporan->kategori?->warna_marker ?: '#3159d4',
             ]);
 
-        return view('masyarakat.home', compact('categories', 'locations', 'cctvs', 'mapPoints'));
+        $notifications = Auth::check()
+            ? Laporan::query()
+                ->with('kategori')
+                ->where('user_id', Auth::id())
+                ->latest('updated_at')
+                ->limit(10)
+                ->get()
+                ->map(function ($laporan) {
+                    $time = $laporan->updated_at->diffForHumans();
+                    $title = "";
+                    $desc = "";
+                    $icon = "🔔";
+                    
+                    if ($laporan->status === 'pending') {
+                        $title = "Laporan Dikirim";
+                        $desc = "Laporan '{$laporan->judul_laporan}' berhasil dikirim dan sedang menunggu konfirmasi petugas.";
+                        $icon = "📤";
+                    } elseif ($laporan->status === 'dikonfirmasi') {
+                        $title = "Laporan Diterima";
+                        $desc = "Laporan '{$laporan->judul_laporan}' telah dikonfirmasi oleh petugas.";
+                        $icon = "✅";
+                    } elseif ($laporan->status === 'diproses') {
+                        $title = "Sedang Diproses";
+                        $desc = "Laporan '{$laporan->judul_laporan}' sedang ditindaklanjuti oleh petugas lapangan.";
+                        $icon = "🚓";
+                    } elseif ($laporan->status === 'selesai') {
+                        $title = "Laporan Selesai";
+                        $desc = "Laporan '{$laporan->judul_laporan}' telah selesai ditangani. Terima kasih atas laporan Anda.";
+                        $icon = "🎉";
+                    } elseif ($laporan->status === 'ditolak') {
+                        $title = "Laporan Ditolak";
+                        $desc = "Laporan '{$laporan->judul_laporan}' ditolak karena data kurang valid.";
+                        $icon = "❌";
+                    }
+                    
+                    return [
+                        'id' => $laporan->id,
+                        'title' => $title,
+                        'desc' => $desc,
+                        'time' => $time,
+                        'icon' => $icon,
+                        'status' => $laporan->status,
+                        'is_unread' => $laporan->updated_at->gt(now()->subDay()),
+                    ];
+                })
+            : collect();
+
+        return view('masyarakat.home', compact('categories', 'locations', 'cctvs', 'mapPoints', 'notifications'));
     }
 
     public function cctv(): View
@@ -75,6 +126,13 @@ class MasyarakatController extends Controller
             ->get();
 
         return view('masyarakat.laporan.index', compact('laporans'));
+    }
+
+    public function showLaporan(Laporan $laporan): View
+    {
+        abort_unless($laporan->user_id === Auth::id(), 403);
+        $laporan->load(['kategori', 'lokasi']);
+        return view('masyarakat.laporan.show', compact('laporan'));
     }
 
     public function createLaporan(): View
@@ -168,6 +226,58 @@ class MasyarakatController extends Controller
     public function profile(): View
     {
         return view('masyarakat.profile', ['user' => Auth::user()]);
+    }
+
+    public function bantuan(): View
+    {
+        return view('masyarakat.bantuan');
+    }
+
+    public function editProfile(Request $request): View
+    {
+        return view('masyarakat.profile.edit', [
+            'user' => $request->user(),
+        ]);
+    }
+
+    public function updateProfile(ProfileUpdateRequest $request): RedirectResponse
+    {
+        $user = $request->user();
+        $data = $request->validated();
+
+        if ($request->hasFile('profile_photo')) {
+            if ($user->profile_photo) {
+                Storage::disk('public')->delete($user->profile_photo);
+            }
+
+            $data['profile_photo'] = $request->file('profile_photo')->store('profile-photos', 'public');
+        } else {
+            unset($data['profile_photo']);
+        }
+
+        $user->fill($data);
+
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
+        }
+
+        $user->save();
+
+        return redirect()->route('masyarakat.profile.edit')->with('status', 'profile-updated');
+    }
+
+    public function updatePassword(Request $request): RedirectResponse
+    {
+        $validated = $request->validateWithBag('updatePassword', [
+            'current_password' => ['required', 'current_password'],
+            'password' => ['required', Password::defaults(), 'confirmed'],
+        ]);
+
+        $request->user()->update([
+            'password' => Hash::make($validated['password']),
+        ]);
+
+        return redirect()->route('masyarakat.profile.edit')->with('status', 'password-updated');
     }
 
     private function nearestPolsek(float $latitude, float $longitude): array

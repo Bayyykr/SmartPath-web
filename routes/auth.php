@@ -22,12 +22,33 @@ Route::middleware(["guest", "prevent-back-history"])->group(function () {
         "createPwa",
     ])->name("pwa.login");
 
+    Route::post("pwa/register", [RegisteredUserController::class, "storePwa"])->name("pwa.register.store");
+
+    Route::get("pwa/forgot-password", [
+        PasswordResetLinkController::class,
+        "createPwa",
+    ])->name("pwa.password.request");
+
+    Route::post("pwa/forgot-password", [
+        PasswordResetLinkController::class,
+        "storePwa",
+    ])->name("pwa.password.email");
+
+    Route::get("pwa/reset-password/{token}", [
+        NewPasswordController::class,
+        "createPwa",
+    ])->name("pwa.password.reset");
+
+    Route::post("pwa/reset-password", [
+        NewPasswordController::class,
+        "storePwa",
+    ])->name("pwa.password.store");
+
+    Route::post("pwa/login", [AuthenticatedSessionController::class, "storePwa"])->name("pwa.login.store");
+
     Route::get("register", [RegisteredUserController::class, "create"])->name(
         "register",
     );
-
-    Route::post("pwa/register", [RegisteredUserController::class, "storePwa"])->name("pwa.register.store");
-    Route::post("pwa/login", [AuthenticatedSessionController::class, "storePwa"])->name("pwa.login.store");
 
     Route::post("register", [RegisteredUserController::class, "store"]);
 

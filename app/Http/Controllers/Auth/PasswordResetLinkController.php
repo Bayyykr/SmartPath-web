@@ -19,6 +19,11 @@ class PasswordResetLinkController extends Controller
         return view('auth.forgot-password');
     }
 
+    public function createPwa(): View
+    {
+        return view('auth.pwa-forgot-password');
+    }
+
     /**
      * Handle an incoming password reset link request.
      *
@@ -36,6 +41,35 @@ class PasswordResetLinkController extends Controller
         $status = Password::sendResetLink(
             $request->only('email')
         );
+
+        return $status == Password::RESET_LINK_SENT
+                    ? back()->with('status', __($status))
+                    : back()->withInput($request->only('email'))
+                        ->withErrors(['email' => __($status)]);
+    }
+
+    public function storePwa(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'email' => ['required', 'email'],
+        ]);
+
+        // Dynamically override URL generation just for this PWA request
+        \Illuminate\Auth\Notifications\ResetPassword::createUrlUsing(function ($user, string $token) {
+            return route('pwa.password.reset', [
+                'token' => $token,
+                'email' => $user->getEmailForPasswordReset(),
+            ]);
+        });
+
+        try {
+            $status = Password::sendResetLink(
+                $request->only('email')
+            );
+        } catch (\Exception $e) {
+            return back()->withInput($request->only('email'))
+                ->withErrors(['email' => 'Gagal mengirim email reset password.']);
+        }
 
         return $status == Password::RESET_LINK_SENT
                     ? back()->with('status', __($status))

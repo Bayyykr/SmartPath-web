@@ -77,14 +77,26 @@ function updateMap() {
 }
 
 function renderHeatmap() {
-    const features = crimeData.map(item => ({
-        "type": "Feature",
-        "properties": {
-            "name": item.nama_lokasi,
-            "total": item.total_laporan
-        },
-        "geometry": item.polygon_geojson
-    })).filter(f => f.geometry);
+    const features = crimeData.map(item => {
+        const counts = {};
+        item.reports.forEach(r => {
+            const catName = r.kategori?.nama_kategori || 'Lainnya';
+            counts[catName] = (counts[catName] || 0) + 1;
+        });
+        const breakdownStr = Object.entries(counts)
+            .map(([cat, count]) => `• ${cat}: ${count}`)
+            .join('<br>');
+
+        return {
+            "type": "Feature",
+            "properties": {
+                "name": item.nama_lokasi,
+                "total": item.total_laporan,
+                "breakdown": breakdownStr
+            },
+            "geometry": item.polygon_geojson
+        };
+    }).filter(f => f.geometry);
 
     console.log("Rendering heatmap features:", features);
 
@@ -102,7 +114,8 @@ function renderHeatmap() {
             fillOpacity: getFillOpacity(feature.properties.total)
         }),
         onEachFeature: (feature, layer) => {
-            layer.bindTooltip(`Kecamatan: ${feature.properties.name}<br>Total Laporan: ${feature.properties.total}`);
+            const breakdown = feature.properties.breakdown ? `<br><strong>Detail Laporan:</strong><br>${feature.properties.breakdown}` : '';
+            layer.bindTooltip(`<strong>Kecamatan: ${feature.properties.name}</strong><br>Total Laporan: ${feature.properties.total}${breakdown}`);
             layer.on({
                 mouseover: (e) => {
                     const l = e.target;
@@ -119,6 +132,42 @@ function renderHeatmap() {
         }
     }).addTo(map);
 }
+
+window.focusLocation = function(name) {
+    if (!geojsonLayer || !map) return;
+
+    if (currentView !== 'heatmap') {
+        currentView = 'heatmap';
+        const btn = document.querySelector('.leaflet-bar button');
+        if (btn) btn.innerHTML = `<strong>Tampilan:</strong> HEATMAP`;
+        updateMap();
+    }
+
+    // Reset styles and close tooltips for all layers first to prevent overlapping
+    geojsonLayer.eachLayer(layer => {
+        geojsonLayer.resetStyle(layer);
+        layer.closeTooltip();
+    });
+
+    let targetLayer = null;
+    geojsonLayer.eachLayer(layer => {
+        if (layer.feature && layer.feature.properties && layer.feature.properties.name.toLowerCase() === name.toLowerCase()) {
+            targetLayer = layer;
+        }
+    });
+
+    if (targetLayer) {
+        map.fitBounds(targetLayer.getBounds(), { padding: [50, 50] });
+        targetLayer.setStyle({ weight: 4, color: '#111', fillOpacity: 0.95 });
+        targetLayer.openTooltip(targetLayer.getBounds().getCenter());
+
+        setTimeout(() => {
+            if (geojsonLayer && targetLayer) {
+                geojsonLayer.resetStyle(targetLayer);
+            }
+        }, 6000);
+    }
+};
 
 function renderMarkers() {
     markerLayer = L.layerGroup();

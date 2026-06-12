@@ -90,9 +90,6 @@
                     <a href="{{ route('login') }}" class="text-sm font-semibold text-gray-700 hover:text-gray-950 transition px-3.5 py-2 rounded-[6px] hover:bg-gray-100">
                         Login sebagai Admin
                     </a>
-                    <a href="/pwa" class="text-sm font-semibold text-gray-700 hover:text-gray-950 transition px-3.5 py-2 rounded-[6px] hover:bg-gray-100">
-                        Buka Web App
-                    </a>
                     <button id="nav-install-btn" class="hidden text-sm font-bold bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-[6px] shadow-sm transition transform active:scale-95">
                         Download App
                     </button>
@@ -101,7 +98,7 @@
         </header>
 
         <section class="py-16 md:py-24 px-6 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            
+
             <div class="lg:col-span-7 space-y-6">
                 <div class="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 border border-blue-200 rounded-full text-xs font-bold text-blue-700 uppercase tracking-wide">
                     🛡️ Sistem Pemantauan Wilayah Terintegrasi
@@ -125,7 +122,7 @@
                         </svg>
                         Download Aplikasi (PWA)
                     </button>
-                    
+
                     <a href="{{ route('login') }}" class="btn-admin-secondary gap-2">
                         Login sebagai Admin
                         <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -152,7 +149,7 @@
                         <span class="text-xs font-bold text-blue-600 tracking-wider uppercase">Sistem Terintegrasi</span>
                         <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
                     </div>
-                    
+
                     <div class="space-y-4">
                         <div class="bg-gray-50 border border-gray-100 p-4 rounded-lg flex items-center justify-between">
                             <div class="space-y-1">
@@ -369,13 +366,13 @@
                         window.location.href = '/pwa';
                         return;
                     }
-                    
+
                     promptEvent.prompt();
                     const { outcome } = await promptEvent.userChoice;
                     console.log(`PWA install response: ${outcome}`);
                     window.geocrimePwaInstallPrompt = null;
                     window.geocrimePwaBeforeInstallPromptFired = false;
-                    
+
                     if (heroInstallBtn) heroInstallBtn.classList.add('hidden');
                     if (navInstallBtn) navInstallBtn.classList.add('hidden');
                 };

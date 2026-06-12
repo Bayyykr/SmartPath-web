@@ -43,7 +43,7 @@
         @if ($laporans->isNotEmpty())
             <div class="gc-list">
                 @foreach ($laporans as $laporan)
-                    <a href="{{ route('masyarakat.laporan.create') }}" class="gc-report-row">
+                    <a href="{{ route('masyarakat.laporan.show', $laporan->id) }}" class="gc-report-row">
                         <span class="gc-thumb">
                             @if ($laporan->foto_kejadian)
                                 <img src="{{ asset('storage/'.$laporan->foto_kejadian) }}" alt="{{ $laporan->judul_laporan }}">

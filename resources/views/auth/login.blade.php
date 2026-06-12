@@ -174,11 +174,6 @@
                         <div class="space-y-1.5">
                             <div class="flex items-center justify-between">
                                 <label for="password" class="text-sm font-bold text-gray-700">Password</label>
-                                @if (Route::has('password.request'))
-                                    <a class="text-xs font-semibold text-blue-600 hover:text-blue-700 transition" href="{{ route('password.request') }}">
-                                        Lupa password?
-                                    </a>
-                                @endif
                             </div>
                             <div class="relative">
                                 <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
@@ -208,9 +203,6 @@
                                 <input type="checkbox" name="remember" class="rounded border-gray-300 text-blue-600 shadow-sm focus:ring-blue-500/25 focus:ring-offset-0">
                                 <span class="ml-2 text-xs font-semibold text-gray-500">Ingat Saya</span>
                             </label>
-                            <a class="text-xs font-bold text-blue-600 hover:text-blue-700 transition" href="{{ route('register') }}">
-                                Daftar Akun Baru
-                            </a>
                         </div>
 
                         <div class="pt-2">
