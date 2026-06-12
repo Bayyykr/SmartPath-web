@@ -47,7 +47,7 @@
             @else
                 <div class="gc-placeholder">
                     <div>
-                        <strong>GeoCrime News</strong>
+                        <strong>Smartpath News</strong>
                         <span>Informasi terbaru untuk masyarakat</span>
                     </div>
                 </div>
